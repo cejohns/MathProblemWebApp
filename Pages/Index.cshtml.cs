@@ -1,20 +1,24 @@
 ﻿using Microsoft.AspNetCore.Mvc.RazorPages;
+using MathProblemWebApp.Models;
 using MathProblemWebApp.Services;
 
 public class IndexModel : PageModel
 {
     private readonly MathProblemService _mathProblemService;
 
-    public string Problem { get; private set; }
+    public string AlgebraProblem { get; private set; } = string.Empty;
+    public Problem GeneratedBasicMathProblem { get; private set; } // You can make this nullable if needed
 
     public IndexModel(MathProblemService mathProblemService)
     {
         _mathProblemService = mathProblemService;
-        Problem = string.Empty; // Initialize the property to an empty string or some default value
+        GeneratedBasicMathProblem  = new Problem(); // Initialize to avoid nullability warnings
     }
 
     public void OnGet()
     {
-        Problem = _mathProblemService.GenerateAdditionProblem(); // Generate a math problem
+        // Correct assignment for string property
+        AlgebraProblem = _mathProblemService.GenerateLinearEquationProblem().Description;
+        GeneratedBasicMathProblem  = _mathProblemService.GenerateBasicMathProblem();
     }
 }

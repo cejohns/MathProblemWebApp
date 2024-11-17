@@ -1,10 +1,13 @@
 ﻿@page
 @model IndexModel
 @{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Math Problem Generator";
 }
 
 <div>
-    <h1>Math Problem Generator</h1>
-    <p>@Model.Problem</p>
+    <h1>Math Problem</h1>
+    <p><strong>Category:</strong> @Model.GeneratedBasicMathProblem .Category</p>
+    <p><strong>Difficulty:</strong> @Model.GeneratedBasicMathProblem .Difficulty</p>
+    <p><strong>Description:</strong> @Model.GeneratedBasicMathProblem .Description</p>
+    <p><strong>Solution:</strong> @Model.GeneratedBasicMathProblem .Solution</p> <!-- This could be hidden initially -->
 </div>

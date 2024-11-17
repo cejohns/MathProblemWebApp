@@ -1,14 +1,13 @@
-using MathProblemWebApp.Services; // Ensure this matches your service namespace
+using MathProblemWebApp.Services; // Add this if it's missing
+
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Register services
 builder.Services.AddRazorPages();
 builder.Services.AddSingleton<MathProblemService>();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Error");
