@@ -1,10 +1,10 @@
-using MathProblemWebApp.Services; // Add this if it's missing
-
+using MathProblemWebApp.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddRazorPages();
-builder.Services.AddSingleton<MathProblemService>();
+builder.Services.AddRazorPages(); // Ensure Razor Pages services are registered
+builder.Services.AddControllers(); // Optional, if you have API controllers
+builder.Services.AddSingleton<MathProblemService>(); // Register your custom service
 
 var app = builder.Build();
 
@@ -20,4 +20,6 @@ app.UseRouting();
 app.UseAuthorization();
 
 app.MapRazorPages();
+app.MapControllers(); // Add this line to map API controllers
+
 app.Run();

@@ -41,7 +41,9 @@ namespace MathProblemWebApp.Services
                     solution = (a % b).ToString();
                     break;
                 default:
-                    throw new ArgumentException("Invalid operation");
+                     description = "Invalid operation provided";
+    solution = "N/A";
+    break;
             }
 
             return new Problem
@@ -151,6 +153,11 @@ namespace MathProblemWebApp.Services
                 Category = "Inequalities",
                 Difficulty = DifficultyLevel.Medium
             };
+        }
+
+        internal object GenerateProblem(string operation)
+        {
+            throw new NotImplementedException();
         }
     }
 }
