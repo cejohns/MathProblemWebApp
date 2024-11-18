@@ -155,6 +155,25 @@ namespace MathProblemWebApp.Services
             };
         }
 
+        public Problem GenerateAdaptiveProblem(string userId, UserProgressService userProgressService)
+{
+    var userProfile = userProgressService.GetUserProfile(userId);
+    DifficultyLevel difficulty = userProfile.CurrentDifficulty;
+
+    switch (difficulty)
+    {
+        case DifficultyLevel.Easy:
+            return GenerateBasicMathProblem(); // Assume this method exists
+        case DifficultyLevel.Medium:
+            return GenerateLinearEquationProblem(); // Assume this method exists
+        case DifficultyLevel.Hard:
+            return GenerateQuadraticEquationProblem(); // Assume this method exists
+        default:
+            return GenerateBasicMathProblem(); // Default fallback
+    }
+}
+
+
         internal object GenerateProblem(string operation)
         {
             throw new NotImplementedException();

@@ -9,11 +9,13 @@ namespace MathProblemWebApp.Controllers
     public class MathProblemController : ControllerBase
     {
         private readonly MathProblemService _mathProblemService;
+         private readonly HintService _hintService; // Injected HintService
 
-        public MathProblemController(MathProblemService mathProblemService)
-        {
-            _mathProblemService = mathProblemService;
-        }
+       public MathProblemController(MathProblemService mathProblemService, HintService hintService)
+    {
+        _mathProblemService = mathProblemService;
+        _hintService = hintService;
+    }
 
         // Endpoint to get a basic arithmetic problem
         [HttpGet("arithmetic/{operation}")]
@@ -47,5 +49,17 @@ namespace MathProblemWebApp.Controllers
         }
 
         // Additional endpoints for other problem types can be added here
+         // Endpoint to get a problem and a hint
+    [HttpGet("problem-with-hint")]
+    public ActionResult GetProblemWithHint()
+    {
+        // Generate a problem (e.g., linear equation)
+        var problem = _mathProblemService.GenerateLinearEquationProblem(); // Example problem generation
+        
+        // Get a hint for the generated problem
+        var hint = _hintService.GetHint(problem);
+
+        return Ok(new { Problem = problem, Hint = hint });
+    }
     }
 }

@@ -5,6 +5,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages(); // Ensure Razor Pages services are registered
 builder.Services.AddControllers(); // Optional, if you have API controllers
 builder.Services.AddSingleton<MathProblemService>(); // Register your custom service
+builder.Services.AddSingleton<HintService>(); // Register the HintService
 
 var app = builder.Build();
 
