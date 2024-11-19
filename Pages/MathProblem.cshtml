@@ -1,0 +1,46 @@
+@page
+@model MathProblemModel
+@{
+    ViewData["Title"] = "Math Problem";
+}
+
+<h1>Math Problem</h1>
+
+<div id="problem-container">
+    <p><strong>Problem:</strong> <span id="problem-description"></span></p>
+    <input type="text" id="user-answer" placeholder="Enter your answer" />
+    <button id="submit-answer">Submit</button>
+    <p id="feedback"></p>
+</div>
+
+<script>
+    async function fetchProblem() {
+        try {
+            const response = await fetch('/api/MathProblem/problem-with-hint');
+            if (!response.ok) {
+                throw new Error('Failed to fetch problem');
+            }
+            const data = await response.json();
+            document.getElementById('problem-description').textContent = data.problem.description;
+            document.getElementById('submit-answer').addEventListener('click', () => {
+                const userAnswer = document.getElementById('user-answer').value;
+                checkAnswer(userAnswer, data.problem.solution);
+            });
+        } catch (error) {
+            document.getElementById('feedback').textContent = 'Error fetching problem: ' + error.message;
+        }
+    }
+
+    function checkAnswer(userAnswer, correctAnswer) {
+        const feedback = document.getElementById('feedback');
+        if (userAnswer.trim() === correctAnswer) {
+            feedback.textContent = 'Correct! Great job!';
+            feedback.style.color = 'green';
+        } else {
+            feedback.textContent = 'Incorrect, please try again.';
+            feedback.style.color = 'red';
+        }
+    }
+
+    fetchProblem();
+</script>
