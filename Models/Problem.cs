@@ -7,6 +7,8 @@ namespace MathProblemWebApp.Models
         public string? Solution { get; set; } // Optional solution (nullable)
         public string Category { get; set; } = "General"; // Category (e.g., Algebra, Geometry, etc.)
         public DifficultyLevel Difficulty { get; set; } // Enum to represent difficulty levels
+
+        public string Hint  { get; set; } = string.Empty;
     }
 
     // Enum to represent different difficulty levels
