@@ -16,40 +16,68 @@ namespace MathProblemWebApp.Services
     int b = random.Next(min, max);
     string description = string.Empty;
     string solution = string.Empty;
-
+    DifficultyLevel difficulty = DifficultyLevel.Easy; // Default difficulty
+    ComplexityLevel complexity = ComplexityLevel.Simple; // Default complexity
     switch (operation.ToLower())
     {
         case "addition":
             description = $"{a} + {b}";
             solution = (a + b).ToString();
+            difficulty = DifficultyLevel.Easy;
+            complexity = ComplexityLevel.Simple;
             break;
 
         case "subtraction":
             description = $"{a} - {b}";
             solution = (a - b).ToString();
+            difficulty = DifficultyLevel.Easy;
+            complexity = ComplexityLevel.Simple;
             break;
 
         case "multiplication":
             description = $"{a} * {b}";
             solution = (a * b).ToString();
+            difficulty = DifficultyLevel.Medium;
+            complexity = ComplexityLevel.Simple;
             break;
 
         case "division":
             b = b == 0 ? 1 : b; // Avoid division by zero
             description = $"{a} / {b}";
             solution = (a / (double)b).ToString("F2"); // Format to 2 decimals
+            difficulty = DifficultyLevel.Medium;
+            complexity = ComplexityLevel.Intermediate; // Division is slightly more complex
             break;
-            case "modulo":
+        case "modulo":
             b = b == 0 ? 1 : b; // Avoid modulo by zero
             description = $"{a} % {b}";
             solution = (a % b).ToString();
+             difficulty = DifficultyLevel.Easy;
+            complexity = ComplexityLevel.Simple;
+            //hint = "Hint: Divide the first number by the second and find the remainder.";
             break;
+      case "lcd":
+    description = $"Find the Least Common Denominator (LCD) of {a} and {b}.";
+    solution = LCD(a, b).ToString();
+    difficulty = DifficultyLevel.Easy; // Basic arithmetic understanding required
+    complexity = ComplexityLevel.Simple; // Single-step calculation
+    //hint = "Hint: The LCD is the smallest number divisible by both numbers. Use prime factorization or multiples.";
+    break;
 
+case "gcd":
+    description = $"Find the Greatest Common Divisor (GCD) of {a} and {b}.";
+    solution = GCD(a, b).ToString();
+    difficulty = DifficultyLevel.Easy; // Suitable for basic skill level
+    complexity = ComplexityLevel.Simple; // Single-step calculation
+    //hint = "Hint: The GCD is the largest number that divides both numbers evenly. Use prime factorization or the Euclidean algorithm.";
+    break;
         case "exponentiation":
             a = random.Next(1, 10); // Smaller base for readability
             b = random.Next(1, 5); // Smaller exponent for readability
             description = $"{a}^{b}";
             solution = Math.Pow(a, b).ToString();
+            difficulty = DifficultyLevel.Hard;
+            complexity = ComplexityLevel.Advanced; // Requires understanding of powers
             break;
 
         case "square root":
@@ -57,6 +85,8 @@ namespace MathProblemWebApp.Services
             int square = a * a;
             description = $"√{square}";
             solution = a.ToString();
+            difficulty = DifficultyLevel.Easy;
+            complexity = ComplexityLevel.Simple;
             break;
 
         case "cube root":
@@ -64,6 +94,8 @@ namespace MathProblemWebApp.Services
             int cube = a * a * a;
             description = $"³√{cube}";
             solution = a.ToString();
+            difficulty = DifficultyLevel.Medium;
+            complexity = ComplexityLevel.Intermediate;
             break;
 
         case "nth root":
@@ -72,24 +104,115 @@ namespace MathProblemWebApp.Services
             int power = (int)Math.Pow(a, n); // Generate the nth power
             description = $"{n}√{power}";
             solution = a.ToString();
+            difficulty = DifficultyLevel.Hard;
+            complexity = ComplexityLevel.Advanced;
+            break;
+          case "ratio":
+            description = $"Simplify the ratio: {a}:{b}";
+            int gcd = GCD(a, b); // Find greatest common divisor for simplification
+            solution = $"{a / gcd}:{b / gcd}";
+            difficulty = DifficultyLevel.Easy;
+            complexity = ComplexityLevel.Simple;
             break;
 
+        case "proportion":
+            int c = random.Next(min, max);
+            description = $"Solve for x: {a}/{b} = x/{c}";
+            solution = ((a * c) / b).ToString("F2");
+            difficulty = DifficultyLevel.Medium;
+            complexity = ComplexityLevel.Intermediate; // Requires solving for x
+            break;
+
+        case "percentage":
+            description = $"What is {a}% of {b}?";
+            solution = ((a / 100.0) * b).ToString("F2");
+            difficulty = DifficultyLevel.Easy;
+            complexity = ComplexityLevel.Simple;
+            break;
+
+        case "percentage change":
+            int newValue = random.Next(min, max);
+            description = $"Find the percentage change from {a} to {newValue}.";
+            double percentChange = ((double)(newValue - a) / a) * 100;
+            solution = percentChange.ToString("F2") + "%";
+            difficulty = DifficultyLevel.Medium;
+            complexity = ComplexityLevel.Intermediate; // Requires understanding percentage change
+            break;
+              case "irrational square root":
+                //int n = random.Next(2, 10); // Generate non-perfect square numbers
+                int nonPerfectSquare = a * a + random.Next(1, a); // Create a number that is not a perfect square
+                description = $"Simplify: √{nonPerfectSquare}";
+                solution = $"√{nonPerfectSquare}";
+                 difficulty = DifficultyLevel.Medium;
+            complexity = ComplexityLevel.Intermediate;
+            //hint = "Hint: This is a non-perfect square root, so leave the solution in its simplified radical form.";
+                break;
+
+            case "pi multiplication":
+                description = $"{a}π";
+                solution = $"{Math.Round(a * Math.PI, 2)}"; // Use Math.PI
+                 difficulty = DifficultyLevel.Hard;
+            complexity = ComplexityLevel.Advanced;
+                break;
+
+            case "e multiplication":
+                description = $"{a}e";
+                solution = $"{Math.Round(a * Math.E, 2)}"; // Use Math.E
+                difficulty = DifficultyLevel.Hard;
+            complexity = ComplexityLevel.Advanced;
+                break;
+
+            case "logarithmic base e":
+                description = $"ln({a})"; // Natural logarithm (base e)
+                solution = $"{Math.Round(Math.Log(a), 2)}";
+                difficulty = DifficultyLevel.Hard;
+            complexity = ComplexityLevel.Advanced; // Logarithms require deeper understanding
+                break;
+
+            case "logarithmic base 10":
+                description = $"log({a})"; // Logarithm base 10
+                solution = $"{Math.Round(Math.Log10(a), 2)}";
+                 difficulty = DifficultyLevel.Hard;
+            complexity = ComplexityLevel.Advanced; // Logarithms require deeper understanding
+            break;
+               
         default:
             description = "Invalid operation provided";
             solution = "N/A";
+            difficulty = DifficultyLevel.Easy;
+            complexity = ComplexityLevel.Simple;
             break;
     }
 
     return new Problem
     {
-        Id = random.Next(1, 10000),
+         Id = random.Next(1, 10000),
         Description = $"Calculate: {description}",
         Solution = solution,
         Category = "Roots and Arithmetic",
-        Difficulty = DifficultyLevel.Easy
+        Difficulty = difficulty,
+        Complexity = complexity
     };
+
+    
 }
 
+ private int LCD(int x, int y)
+    {
+        return Math.Abs(x * y) / GCD(x, y); // Use GCD to calculate LCD
+    }
+
+ // Helper method to calculate the greatest common divisor (GCD)
+    private int GCD(int x, int y)
+    {
+        while (y != 0)
+        {
+            int temp = y;
+            y = x % y;
+            x = temp;
+        }
+        return x;
+    }
 
         // Generate a linear equation problem
     public Problem GenerateLinearEquationProblem()

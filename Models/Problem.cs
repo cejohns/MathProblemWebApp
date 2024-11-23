@@ -9,6 +9,10 @@ namespace MathProblemWebApp.Models
         public DifficultyLevel Difficulty { get; set; } // Enum to represent difficulty levels
 
         public string Hint  { get; set; } = string.Empty;
+
+          // Additional properties for subject-specific complexity
+        public string Subject { get; set; } = "General"; // Mathematical subject (e.g., Arithmetic, Algebra, etc.)
+        public ComplexityLevel Complexity { get; set; } // Enum for more granular complexity levels
     }
 
     // Enum to represent different difficulty levels
@@ -17,5 +21,14 @@ namespace MathProblemWebApp.Models
         Easy,
         Medium,
         Hard
+    }
+
+    // Enum for subject-specific complexity levels
+    public enum ComplexityLevel
+    {
+        Simple,       // Basic single-step problems
+        Intermediate, // Multi-step or slightly advanced problems
+        Advanced,     // Complex problems requiring deeper understanding
+        Challenging   // Problems that combine multiple concepts or require high-level reasoning
     }
 }
