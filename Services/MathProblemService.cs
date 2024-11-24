@@ -460,44 +460,180 @@ public Problem GeneratePolynomialProblem()
 }
 
 
-        // Generate a factoring problem
-        public Problem GenerateFactoringProblem()
-        {
-            int a = random.Next(1, 5);
-            int b = random.Next(1, 10);
-            int c = a * b;
+       // Generate a factoring problem
+public Problem GenerateFactoringProblem()
+{
+    int a = random.Next(1, 5); // Leading coefficient
+    int b = random.Next(1, 10); // One root
+    int c = random.Next(1, 10); // Second root
 
-            string description = $"Factor the expression: x² + {c}x + {b * b}";
-            // Solution calculation omitted for simplicity
+    int constantTerm = b * c; // Constant term in the quadratic
+    int linearCoefficient = b + c; // Coefficient of x term
 
-            return new Problem
-            {
-                Id = random.Next(1, 10000),
-                Description = description,
-                Solution = "N/A", // Placeholder for the actual solution
-                Category = "Factoring",
-                Difficulty = DifficultyLevel.Medium
-            };
-        }
+    string description = $"Factor the quadratic expression: {a}x² + {linearCoefficient}x + {constantTerm}";
+    string solution = $"({a}x + {b})({a}x + {c})"; // The factored form of the quadratic
+    string hint = $"Hint: Look for two numbers that multiply to {constantTerm} and add to {linearCoefficient}.";
 
-        // Generate an inequality problem
-        public Problem GenerateInequalityProblem()
-        {
-            int a = random.Next(1, 10);
-            int b = random.Next(1, 10);
+    DifficultyLevel difficulty;
+    ComplexityLevel complexity;
 
-            string description = $"Solve the inequality: {a}x > {b}";
-            // Solution calculation omitted for simplicity
+    // Assign difficulty and complexity based on the size of coefficients
+    if (Math.Max(b, c) <= 5)
+    {
+        difficulty = DifficultyLevel.Easy;
+        complexity = ComplexityLevel.Simple;
+    }
+    else
+    {
+        difficulty = DifficultyLevel.Medium;
+        complexity = ComplexityLevel.Intermediate;
+    }
 
-            return new Problem
-            {
-                Id = random.Next(1, 10000),
-                Description = description,
-                Solution = "N/A", // Placeholder for the actual solution
-                Category = "Inequalities",
-                Difficulty = DifficultyLevel.Medium
-            };
-        }
+    return new Problem
+    {
+        Id = random.Next(1, 10000),
+        Description = description,
+        Solution = solution,
+        Hint = hint,
+        Category = "Factoring",
+        Difficulty = difficulty,
+        Complexity = complexity
+    };
+}
+
+    public Problem GenerateGeometryProblem(string topic = "basic concepts")
+{
+    string description = string.Empty;
+    string solution = string.Empty;
+    string hint = string.Empty;
+    DifficultyLevel difficulty = DifficultyLevel.Medium;
+    ComplexityLevel complexity = ComplexityLevel.Simple;
+
+    switch (topic.ToLower())
+    {
+        // 1. Basic Geometric Concepts
+        case "points, lines, line segments, and rays":
+            description = "What is the length of a line segment with endpoints A(1, 2) and B(4, 6)?";
+            solution = $"{Math.Sqrt(Math.Pow(4 - 1, 2) + Math.Pow(6 - 2, 2)):F2}";
+            hint = "Hint: Use the distance formula: √((x2 - x1)² + (y2 - y1)²).";
+            difficulty = DifficultyLevel.Easy;
+            break;
+
+        case "types of angles":
+            description = "Classify an angle measuring 120°.";
+            solution = "Obtuse";
+            hint = "Hint: Angles between 90° and 180° are obtuse.";
+            difficulty = DifficultyLevel.Easy;
+            break;
+
+        case "parallel and perpendicular lines":
+            description = "Are the lines with slopes 3 and -1/3 perpendicular?";
+            solution = "Yes";
+            hint = "Hint: Perpendicular lines have slopes that are negative reciprocals.";
+            difficulty = DifficultyLevel.Medium;
+            break;
+
+        // 2. Triangles
+        case "pythagorean theorem":
+            int baseLength = random.Next(3, 10);
+            int height = random.Next(3, 10);
+            description = $"Find the hypotenuse of a right triangle with base {baseLength} and height {height}.";
+            solution = $"{Math.Sqrt(baseLength * baseLength + height * height):F2}";
+            hint = "Hint: Use the formula: Hypotenuse² = Base² + Height².";
+            difficulty = DifficultyLevel.Medium;
+            complexity = ComplexityLevel.Intermediate;
+            break;
+
+        case "triangle inequality theorem":
+            int side1 = random.Next(1, 10);
+            int side2 = random.Next(1, 10);
+            int side3 = random.Next(1, 20);
+            bool isTriangle = side1 + side2 > side3 && side1 + side3 > side2 && side2 + side3 > side1;
+            description = $"Can the sides {side1}, {side2}, and {side3} form a triangle?";
+            solution = isTriangle ? "Yes" : "No";
+            hint = "Hint: For any triangle, the sum of any two sides must be greater than the third.";
+            difficulty = DifficultyLevel.Medium;
+            break;
+
+        // 3. Quadrilaterals
+        case "types of quadrilaterals":
+            description = "Identify the quadrilateral with opposite sides equal and four right angles.";
+            solution = "Rectangle";
+            hint = "Hint: A rectangle has equal opposite sides and 90° angles.";
+            difficulty = DifficultyLevel.Easy;
+            break;
+
+        // 4. Circles
+        case "arc length":
+            int radius = random.Next(5, 15);
+            int centralAngle = random.Next(30, 180);
+            description = $"Find the arc length of a circle with radius {radius} and central angle {centralAngle}°.";
+            solution = $"{(Math.PI * radius * centralAngle) / 180:F2}";
+            hint = "Hint: Arc length = (θ/360) × 2πr.";
+            difficulty = DifficultyLevel.Medium;
+            break;
+
+        // 5. Polygons
+        case "sum of interior angles":
+            int sides = random.Next(3, 10);
+            int sumAngles = (sides - 2) * 180;
+            description = $"What is the sum of the interior angles of a polygon with {sides} sides?";
+            solution = $"{sumAngles}°";
+            hint = "Hint: Sum of interior angles = (n - 2) × 180, where n is the number of sides.";
+            difficulty = DifficultyLevel.Easy;
+            break;
+
+        // 6. Transformations
+        case "coordinate transformations":
+            int x = random.Next(1, 10), y = random.Next(1, 10);
+            description = $"If point ({x}, {y}) is reflected over the x-axis, what is its new coordinate?";
+            solution = $"({x}, {-y})";
+            hint = "Hint: Reflection over the x-axis changes the y-coordinate to its opposite.";
+            difficulty = DifficultyLevel.Medium;
+            break;
+
+        // 7. Coordinate Geometry
+        case "distance formula":
+            int x1 = random.Next(1, 10), y1 = random.Next(1, 10);
+            int x2 = random.Next(1, 10), y2 = random.Next(1, 10);
+            description = $"Find the distance between points ({x1}, {y1}) and ({x2}, {y2}).";
+            solution = $"{Math.Sqrt(Math.Pow(x2 - x1, 2) + Math.Pow(y2 - y1, 2)):F2}";
+            hint = "Hint: Use the distance formula: √((x2 - x1)² + (y2 - y1)²).";
+            difficulty = DifficultyLevel.Medium;
+            break;
+
+        // 8. Area and Volume
+        case "volume of a sphere":
+            radius = random.Next(1, 10);
+            description = $"Find the volume of a sphere with radius {radius}.";
+            solution = $"{(4 / 3.0) * Math.PI * Math.Pow(radius, 3):F2}";
+            hint = "Hint: Volume of a sphere = (4/3)πr³.";
+            difficulty = DifficultyLevel.Medium;
+            complexity = ComplexityLevel.Intermediate;
+            break;
+
+        // Default case for invalid topic
+        default:
+            description = "Invalid topic selected for Geometry.";
+            solution = "N/A";
+            difficulty = DifficultyLevel.Easy;
+            complexity = ComplexityLevel.Simple;
+            break;
+    }
+
+    return new Problem
+    {
+        Id = random.Next(1, 10000),
+        Description = description,
+        Solution = solution,
+        Hint = hint,
+        Category = "Geometry",
+        Difficulty = difficulty,
+        Complexity = complexity
+    };
+}
+
+
 
         public Problem GenerateAdaptiveProblem(string userId, UserProgressService userProgressService)
 {
