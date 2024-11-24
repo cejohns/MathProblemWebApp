@@ -231,111 +231,160 @@ case "gcd":
     int format = random.Next(1, 10); // Formats 1-3 for equations, 4-9 for inequalities
     string description;
     string solution;
+     DifficultyLevel difficulty = DifficultyLevel.Medium; // Default difficulty
+    ComplexityLevel complexity = ComplexityLevel.Simple; // Default complexity
+    string hint = string.Empty;
 
     switch (format)
     {
         case 1: // Format: ax + b = c
             description = $"Solve for x: {a}x + {b} = {c}";
             solution = ((double)(c - b) / a).ToString("F2");
+            hint = $"Hint: Subtract {b} from both sides, then divide by {a}.";
+            complexity = ComplexityLevel.Simple;
             break;
 
         case 2: // Format: ax - b = c
             description = $"Solve for x: {a}x - {b} = {c}";
             solution = ((double)(c + b) / a).ToString("F2");
+            hint = $"Hint: Add {b} to both sides, then divide by {a}.";
+            complexity = ComplexityLevel.Simple;
             break;
 
-        case 3: // Format: b - ax = c
-            description = $"Solve for x: {b} - {a}x = {c}";
-            solution = ((double)(b - c) / a).ToString("F2");
-            break;
+       case 3: // Format: b - ax = c
+    description = $"Solve for x: {b} - {a}x = {c}";
+    solution = ((double)(b - c) / a).ToString("F2"); // Rearrange equation to isolate x
+    difficulty = DifficultyLevel.Medium; // Moderate challenge
+    complexity = ComplexityLevel.Intermediate; // Multi-step solution
+    hint = $"Hint: Subtract {c} from {b}, then divide by {-a} to isolate x.";
+    break;
 
         // Inequality Cases
-        case 4: // Format: ax + b > c
+      case 4: // Format: ax + b > c
             description = $"Solve for x: {a}x + {b} > {c}";
             solution = $"x > {((double)(c - b) / a).ToString("F2")}";
+            hint = $"Hint: Isolate x and divide by {a}. Reverse the inequality if {a} is negative.";
+            complexity = ComplexityLevel.Intermediate;
             break;
 
-        case 5: // Format: ax + b < c
-            description = $"Solve for x: {a}x + {b} < {c}";
-            solution = $"x < {((double)(c - b) / a).ToString("F2")}";
-            break;
+     case 5: // Format: ax + b < c
+        description = $"Solve for x: {a}x + {b} < {c}";
+        solution = $"x < {((double)(c - b) / a).ToString("F2")}";
+        difficulty = DifficultyLevel.Medium;
+        complexity = ComplexityLevel.Intermediate;
+        hint = $"Hint: Subtract {b} from both sides, then divide by {a}. Remember to reverse the inequality if {a} is negative.";
+        break;
 
-        case 6: // Format: ax - b >= c
-            description = $"Solve for x: {a}x - {b} >= {c}";
-            solution = $"x >= {((double)(c + b) / a).ToString("F2")}";
-            break;
+    case 6: // Format: ax - b >= c
+        description = $"Solve for x: {a}x - {b} >= {c}";
+        solution = $"x >= {((double)(c + b) / a).ToString("F2")}";
+        difficulty = DifficultyLevel.Medium;
+        complexity = ComplexityLevel.Intermediate;
+        hint = $"Hint: Add {b} to both sides, then divide by {a}. Remember to reverse the inequality if {a} is negative.";
+        break;
 
-        case 7: // Format: ax - b <= c
-            description = $"Solve for x: {a}x - {b} <= {c}";
-            solution = $"x <= {((double)(c + b) / a).ToString("F2")}";
-            break;
+    case 7: // Format: ax - b <= c
+        description = $"Solve for x: {a}x - {b} <= {c}";
+        solution = $"x <= {((double)(c + b) / a).ToString("F2")}";
+        difficulty = DifficultyLevel.Medium;
+        complexity = ComplexityLevel.Intermediate;
+        hint = $"Hint: Add {b} to both sides, then divide by {a}. Remember to reverse the inequality if {a} is negative.";
+        break;
 
-        case 8: // Format: b - ax > c
+       case 8: // Format: b - ax > c
             description = $"Solve for x: {b} - {a}x > {c}";
             solution = $"x < {((double)(b - c) / a).ToString("F2")}";
+            hint = $"Hint: Rearrange the inequality to isolate x. Reverse the inequality if {a} is negative.";
+            difficulty = DifficultyLevel.Medium;
+            complexity = ComplexityLevel.Advanced;
             break;
 
-        case 9: // Format: b - ax < c
-            description = $"Solve for x: {b} - {a}x < {c}";
-            solution = $"x > {((double)(b - c) / a).ToString("F2")}";
-            break;
+       case 9: // Format: b - ax < c
+    description = $"Solve for x: {b} - {a}x < {c}";
+    solution = $"x > {((double)(b - c) / a).ToString("F2")}"; // Rearrange and solve for x
+    difficulty = DifficultyLevel.Medium; // Medium difficulty due to inequality handling
+    complexity = ComplexityLevel.Intermediate; // Multi-step process with condition checking
+    hint = $"Hint: Subtract {c} from {b}, then divide by {-a} to isolate x. Reverse the inequality if {a} is negative.";
+    break;
 
         // Exponents
         case 10: // Format: x^2 = a
-            a = random.Next(1, 100); // Ensure 'a' is positive for square root
+            a = random.Next(1, 100); // Ensure 'a' is positive
             description = $"Solve for x: x² = {a}";
             solution = $"x = ±{Math.Sqrt(a):F2}";
+            hint = $"Hint: Take the square root of both sides. Don't forget ±!";
+            difficulty = DifficultyLevel.Hard;
+            complexity = ComplexityLevel.Advanced;
             break;
+case 11: // Format: x^n = a
+        int n = random.Next(2, 5); // Random exponent
+        a = random.Next(1, 10); // Smaller base for readability
+        int power = (int)Math.Pow(a, n); // Generate nth power
+        description = $"Solve for x: x^{n} = {power}";
+        solution = $"x = ±{a}";
+        difficulty = DifficultyLevel.Medium;
+        complexity = ComplexityLevel.Intermediate;
+        hint = $"Hint: Take the nth root of {power} to find x. Remember that x can be ±{a}.";
+        break;
 
-        case 11: // Format: x^n = a
-            int n = random.Next(2, 5); // Random exponent
-            a = random.Next(1, 10); // Smaller base for readability
-            int power = (int)Math.Pow(a, n); // Generate nth power
-            description = $"Solve for x: x^{n} = {power}";
-            solution = $"x = ±{a}";
-            break;
+    case 12: // Format: √x = b
+        b = random.Next(1, 10); // Positive base
+        int square = b * b; // Calculate perfect square
+        description = $"Solve for x: √x = {b}";
+        solution = $"x = {square}";
+        difficulty = DifficultyLevel.Easy;
+        complexity = ComplexityLevel.Simple;
+        hint = $"Hint: Square both sides to find x.";
+        break;
 
-        // Roots
-        case 12: // Format: √x = b
-            b = random.Next(1, 10);
-            int square = b * b;
-            description = $"Solve for x: √x = {b}";
-            solution = $"x = {square}";
-            break;
-
-        case 13: // Format: nth root of x = b
-            n = random.Next(2, 5); // Random root degree
-            b = random.Next(2, 5); // Base value
-            int nthPower = (int)Math.Pow(b, n);
-            description = $"Solve for x: {n}√x = {b}";
-            solution = $"x = {nthPower}";
-            break;
+    case 13: // Format: nth root of x = b
+        n = random.Next(2, 5); // Random root degree
+        b = random.Next(2, 5); // Base value
+        int nthPower = (int)Math.Pow(b, n); // Calculate nth power
+        description = $"Solve for x: {n}√x = {b}";
+        solution = $"x = {nthPower}";
+        difficulty = DifficultyLevel.Medium;
+        complexity = ComplexityLevel.Intermediate;
+        hint = $"Hint: Raise both sides to the power of {n} to find x.";
+        break;
 
         // Exponential Inequalities
-        case 14: // Format: x^2 > a
+      case 14: // Format: x^2 > a
             a = random.Next(1, 100); // Ensure 'a' is positive
             description = $"Solve for x: x² > {a}";
             solution = $"x > ±{Math.Sqrt(a):F2}";
+            hint = $"Hint: Solve as if it were an equation, then adjust for the inequality.";
+            difficulty = DifficultyLevel.Hard;
+            complexity = ComplexityLevel.Challenging;
             break;
 
-        case 15: // Format: √x < b
-            b = random.Next(1, 10);
-            square = b * b;
-            description = $"Solve for x: √x < {b}";
-            solution = $"x < {square}";
-            break;
+       case 15: // Format: √x < b
+        b = random.Next(1, 10); // Positive base
+        square = b * b; // Calculate perfect square
+        description = $"Solve for x: √x < {b}";
+        solution = $"x < {square}";
+        difficulty = DifficultyLevel.Medium;
+        complexity = ComplexityLevel.Intermediate;
+        hint = $"Hint: Square both sides to remove the square root. Ensure the result is positive.";
+        break;
 
-        case 16: // Format: nth root of x > b
-            n = random.Next(2, 5); // Random root degree
-            b = random.Next(2, 5); // Base value
-            nthPower = (int)Math.Pow(b, n);
-            description = $"Solve for x: {n}√x > {b}";
-            solution = $"x > {nthPower}";
-            break;
+    case 16: // Format: nth root of x > b
+        n = random.Next(2, 5); // Random root degree
+        b = random.Next(2, 5); // Base value
+        nthPower = (int)Math.Pow(b, n); // Calculate nth power
+        description = $"Solve for x: {n}√x > {b}";
+        solution = $"x > {nthPower}";
+        difficulty = DifficultyLevel.Hard;
+        complexity = ComplexityLevel.Advanced;
+        hint = $"Hint: Raise both sides to the power of {n} to remove the root. Ensure the result remains valid for inequalities.";
+        break;
 
         default: // Default to ax + b = c
             description = $"Solve for x: {a}x + {b} = {c}";
             solution = ((double)(c - b) / a).ToString("F2");
+            difficulty = DifficultyLevel.Easy;
+            complexity = ComplexityLevel.Simple;
+             hint = $"Hint: Subtract {b} from both sides, then divide by {a}.";
             break;
     }
 
@@ -345,10 +394,10 @@ case "gcd":
         Description = description,
         Solution = solution,
         Category = "Linear Equations and Inequalities",
-        Difficulty = DifficultyLevel.Medium,
-        // Hint to solve the inequality or equation
-        Hint = $"Step 1: Isolate x by moving constants to the other side.\nStep 2: Divide both sides by {a}. Remember to reverse the inequality if dividing by a negative."
-    };
+        Difficulty = difficulty,
+        Complexity = complexity,
+        Hint = hint
+    };    
 }
 
 
