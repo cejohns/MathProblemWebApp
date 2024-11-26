@@ -633,6 +633,416 @@ public Problem GenerateFactoringProblem()
     };
 }
 
+public Problem GenerateTrigonometryProblem(string topic = "trig ratios")
+{
+    string description = string.Empty;
+    string solution = string.Empty;
+    string hint = string.Empty;
+    DifficultyLevel difficulty = DifficultyLevel.Medium;
+    ComplexityLevel complexity = ComplexityLevel.Simple; // Default complexity
+
+    switch (topic.ToLower())
+    {
+        // 1. Trigonometric Ratios and Functions
+        case "trig ratios":
+            string[] functions = { "sine", "cosine", "tangent", "cotangent", "secant", "cosecant" };
+            string selectedFunction = functions[random.Next(functions.Length)];
+            description = $"Define the trigonometric function {selectedFunction} and describe its relationship in a right triangle.";
+            solution = "Depends on the function. For example: sine = opposite/hypotenuse.";
+            hint = "Hint: Think of the sides of a right triangle.";
+            difficulty = DifficultyLevel.Easy;
+            complexity = ComplexityLevel.Simple;
+            break;
+
+        case "right triangle":
+            int a = random.Next(3, 10);
+            int b = random.Next(3, 10);
+            description = $"Given a right triangle with adjacent side {a} and opposite side {b}, find the value of sine, cosine, and tangent for the corresponding angle.";
+            solution = $"Sine = {Math.Round((double)b / Math.Sqrt(a * a + b * b), 2)}, Cosine = {Math.Round((double)a / Math.Sqrt(a * a + b * b), 2)}, Tangent = {Math.Round((double)b / a, 2)}";
+            hint = "Hint: Use SOH-CAH-TOA.";
+            difficulty = DifficultyLevel.Medium;
+            complexity = ComplexityLevel.Intermediate;
+            break;
+
+        // 2. Unit Circle and Radian Measure
+        case "unit circle":
+            description = $"Using the unit circle, find the coordinates of the point corresponding to an angle of π/4 radians.";
+            solution = "(√2/2, √2/2)";
+            hint = "Hint: Think about the coordinates of points on the unit circle.";
+            difficulty = DifficultyLevel.Medium;
+            complexity = ComplexityLevel.Simple;
+            break;
+
+        case "degree to radian":
+            int degrees = random.Next(0, 361);
+            description = $"Convert {degrees}° to radians.";
+            solution = $"{Math.Round(degrees * Math.PI / 180, 2)} radians";
+            hint = "Hint: Use the formula radians = degrees × π / 180.";
+            difficulty = DifficultyLevel.Easy;
+            complexity = ComplexityLevel.Simple;
+            break;
+
+        case "unit circle value":
+            string[] angles = { "π/6", "π/4", "π/3", "π/2" };
+            string selectedAngle = angles[random.Next(angles.Length)];
+            string[] trigFunctions = { "sin", "cos", "tan" };
+            string selectedTrigFunction = trigFunctions[random.Next(trigFunctions.Length)];
+            description = $"Using the unit circle, find {selectedTrigFunction}({selectedAngle}).";
+            solution = selectedTrigFunction switch
+            {
+                "sin" => selectedAngle == "π/6" ? "1/2" : selectedAngle == "π/4" ? "√2/2" : "√3/2",
+                "cos" => selectedAngle == "π/6" ? "√3/2" : selectedAngle == "π/4" ? "√2/2" : "1/2",
+                "tan" => selectedAngle == "π/6" ? "1/√3" : selectedAngle == "π/4" ? "1" : "√3",
+                _ => "N/A"
+            };
+            hint = "Hint: Use the coordinates of points on the unit circle.";
+            difficulty = DifficultyLevel.Medium;
+            complexity = ComplexityLevel.Intermediate;
+            break;
+
+        // 3. Trigonometric Identities and Equations
+        case "pythagorean identity":
+            description = $"Prove that sin²(x) + cos²(x) = 1 for any angle x.";
+            solution = "By definition, the sum of the squares of sine and cosine equals 1 on the unit circle.";
+            hint = "Hint: Recall the equation of the unit circle.";
+            difficulty = DifficultyLevel.Medium;
+            complexity = ComplexityLevel.Intermediate;
+            break;
+
+        case "double angle":
+            description = "Use the double-angle formula to find cos(2x) when x = 30°.";
+            solution = "Cos(2x) = 1 - 2sin²(x) = 1 - 2(1/4) = 1/2";
+            hint = "Hint: Use the formula cos(2x) = 1 - 2sin²(x).";
+            difficulty = DifficultyLevel.Hard;
+            complexity = ComplexityLevel.Intermediate;
+            break;
+
+        case "solve trig equation":
+            description = "Solve the equation sin(x) = 0.5 for 0° ≤ x ≤ 360°.";
+            solution = "x = 30° or x = 150°";
+            hint = "Hint: Think of angles where the sine value is 0.5.";
+            difficulty = DifficultyLevel.Medium;
+            complexity = ComplexityLevel.Intermediate;
+            break;
+
+        // 4. Law of Sines and Law of Cosines
+        case "law of sines":
+            description = "Given a triangle with angles A = 30°, B = 45°, and side a = 10, find the length of side b using the Law of Sines.";
+            solution = "b = 10 × sin(45°) / sin(30°) = 10√2";
+            hint = "Hint: Use the formula a/sin(A) = b/sin(B).";
+            difficulty = DifficultyLevel.Medium;
+            complexity = ComplexityLevel.Intermediate;
+            break;
+
+        case "law of cosines":
+            description = "Find the length of the third side of a triangle with sides a = 7, b = 10, and angle C = 60° using the Law of Cosines.";
+            solution = "c = √(7² + 10² - 2(7)(10)cos(60°)) = 9";
+            hint = "Hint: Use the formula c² = a² + b² - 2abcos(C).";
+            difficulty = DifficultyLevel.Hard;
+            complexity = ComplexityLevel.Advanced;
+            break;
+
+        default:
+            description = "Invalid topic for Trigonometry.";
+            solution = "N/A";
+            break;
+    }
+
+    return new Problem
+    {
+        Id = random.Next(1, 10000),
+        Description = description,
+        Solution = solution,
+        Hint = hint,
+        Category = "Trigonometry",
+        Difficulty = difficulty,
+        Complexity = complexity
+    };
+}
+
+
+public Problem GeneratePreCalculusProblem(string topic = "sequence")
+{
+    string description = string.Empty;
+    string solution = string.Empty;
+    string hint = string.Empty;
+    DifficultyLevel difficulty = DifficultyLevel.Medium;
+
+    switch (topic.ToLower())
+    {
+        case "sequence":
+            int firstTerm = random.Next(1, 10);
+            int commonDifference = random.Next(1, 5);
+            description = $"Find the 5th term of the arithmetic sequence starting with {firstTerm} and having a common difference of {commonDifference}.";
+            solution = $"{firstTerm + 4 * commonDifference}";
+            hint = "Hint: Use the formula Tn = a + (n-1)d.";
+            break;
+
+        case "limit":
+            int a = random.Next(1, 10);
+            description = $"Find the limit as x approaches {a} of (x² - {a * a}) / (x - {a}).";
+            solution = $"{2 * a}"; // Simplify (x² - a²) to (x - a)(x + a)
+            hint = "Hint: Simplify the expression by factoring.";
+            break;
+
+        default:
+            description = "Invalid topic for Pre-Calculus.";
+            solution = "N/A";
+            break;
+    }
+
+    return new Problem
+    {
+        Id = random.Next(1, 10000),
+        Description = description,
+        Solution = solution,
+        Hint = hint,
+        Category = "Pre-Calculus",
+        Difficulty = difficulty
+    };
+}
+
+public Problem GenerateCalculusProblem(string topic = "derivative")
+{
+    string description = string.Empty;
+    string solution = string.Empty;
+    string hint = string.Empty;
+    DifficultyLevel difficulty = DifficultyLevel.Hard;
+
+    switch (topic.ToLower())
+    {
+        case "derivative":
+            int coefficient = random.Next(1, 10);
+            int exponent = random.Next(1, 5);
+            description = $"Find the derivative of f(x) = {coefficient}x^{exponent}.";
+            solution = $"{coefficient * exponent}x^{exponent - 1}";
+            hint = "Hint: Use the power rule: d/dx [x^n] = nx^(n-1).";
+            break;
+
+        case "integral":
+            coefficient = random.Next(1, 10);
+            exponent = random.Next(1, 5);
+            description = $"Find the indefinite integral of f(x) = {coefficient}x^{exponent}.";
+            solution = $"{coefficient / (exponent + 1)}x^{exponent + 1} + C";
+            hint = "Hint: Use the formula ∫x^n dx = (1/(n+1))x^(n+1) + C.";
+            break;
+
+        default:
+            description = "Invalid topic for Calculus.";
+            solution = "N/A";
+            break;
+    }
+
+    return new Problem
+    {
+        Id = random.Next(1, 10000),
+        Description = description,
+        Solution = solution,
+        Hint = hint,
+        Category = "Calculus",
+        Difficulty = difficulty
+    };
+}
+
+public Problem GenerateLinearAlgebraProblem(string topic = "matrix")
+{
+    string description = string.Empty;
+    string solution = string.Empty;
+    string hint = string.Empty;
+    DifficultyLevel difficulty = DifficultyLevel.Hard;
+
+    switch (topic.ToLower())
+    {
+        case "matrix":
+            description = "Find the determinant of the matrix:\n| 2  3 |\n| 1  4 |";
+            solution = "Determinant = 2(4) - 3(1) = 5";
+            hint = "Hint: Use the determinant formula for a 2x2 matrix: ad - bc.";
+            break;
+
+        case "vector":
+            int x = random.Next(1, 10);
+            int y = random.Next(1, 10);
+            description = $"Find the magnitude of the vector ({x}, {y}).";
+            solution = $"{Math.Sqrt(x * x + y * y):F2}";
+            hint = "Hint: Use the formula √(x² + y²).";
+            break;
+
+        default:
+            description = "Invalid topic for Linear Algebra.";
+            solution = "N/A";
+            break;
+    }
+
+    return new Problem
+    {
+        Id = random.Next(1, 10000),
+        Description = description,
+        Solution = solution,
+        Hint = hint,
+        Category = "Linear Algebra",
+        Difficulty = difficulty
+    };
+}
+
+
+public Problem GenerateDifferentialEquationsProblem(string type = "ODE")
+{
+    string description = string.Empty;
+    string solution = string.Empty;
+    string hint = string.Empty;
+    DifficultyLevel difficulty = DifficultyLevel.Hard;
+
+    switch (type.ToLower())
+    {
+        case "ode":
+            description = "Solve the ordinary differential equation: dy/dx = 3x².";
+            solution = "y = x³ + C";
+            hint = "Hint: Integrate both sides with respect to x.";
+            break;
+
+        case "pde":
+            description = "Solve the partial differential equation: ∂u/∂t = ∂²u/∂x².";
+            solution = "Solution depends on boundary conditions (e.g., Fourier series).";
+            hint = "Hint: Use separation of variables.";
+            break;
+
+        default:
+            description = "Invalid type for Differential Equations.";
+            solution = "N/A";
+            break;
+    }
+
+    return new Problem
+    {
+        Id = random.Next(1, 10000),
+        Description = description,
+        Solution = solution,
+        Hint = hint,
+        Category = "Differential Equations",
+        Difficulty = difficulty
+    };
+}
+
+public Problem GenerateDiscreteMathProblem(string topic = "logic")
+{
+    string description = string.Empty;
+    string solution = string.Empty;
+    string hint = string.Empty;
+    DifficultyLevel difficulty = DifficultyLevel.Medium;
+
+    switch (topic.ToLower())
+    {
+        case "logic":
+            description = "Simplify the logical expression: (A ∧ B) ∨ (¬A ∧ B).";
+            solution = "B";
+            hint = "Hint: Use distribution and simplification rules.";
+            break;
+
+        case "graph theory":
+            description = "Find the shortest path between nodes A and E in a weighted graph.";
+            solution = "Solution depends on the graph (e.g., Dijkstra's algorithm).";
+            hint = "Hint: Use a shortest-path algorithm.";
+            break;
+
+        case "set theory":
+            description = "Find A ∩ B if A = {1, 2, 3} and B = {2, 3, 4}.";
+            solution = "{2, 3}";
+            hint = "Hint: Intersection includes elements common to both sets.";
+            break;
+
+        default:
+            description = "Invalid topic for Discrete Mathematics.";
+            solution = "N/A";
+            break;
+    }
+
+    return new Problem
+    {
+        Id = random.Next(1, 10000),
+        Description = description,
+        Solution = solution,
+        Hint = hint,
+        Category = "Discrete Mathematics",
+        Difficulty = difficulty
+    };
+}
+
+public Problem GenerateAbstractAlgebraProblem(string topic = "groups")
+{
+    string description = string.Empty;
+    string solution = string.Empty;
+    string hint = string.Empty;
+    DifficultyLevel difficulty = DifficultyLevel.Hard;
+
+    switch (topic.ToLower())
+    {
+        case "groups":
+            description = "Prove that the set of integers under addition forms a group.";
+            solution = "Solution involves verifying closure, associativity, identity, and inverse.";
+            hint = "Hint: Use the group axioms.";
+            break;
+
+        case "rings":
+            description = "Verify if (Z, +, ×) is a commutative ring.";
+            solution = "Yes, integers form a commutative ring.";
+            hint = "Hint: Check the ring axioms.";
+            break;
+
+        default:
+            description = "Invalid topic for Abstract Algebra.";
+            solution = "N/A";
+            break;
+    }
+
+    return new Problem
+    {
+        Id = random.Next(1, 10000),
+        Description = description,
+        Solution = solution,
+        Hint = hint,
+        Category = "Abstract Algebra",
+        Difficulty = difficulty
+    };
+}
+
+public Problem GenerateProbabilityProblem(string topic = "probability")
+{
+    string description = string.Empty;
+    string solution = string.Empty;
+    string hint = string.Empty;
+    DifficultyLevel difficulty = DifficultyLevel.Medium;
+
+    switch (topic.ToLower())
+    {
+        case "probability":
+            description = "What is the probability of rolling a sum of 7 with two dice?";
+            solution = "6/36 or 1/6";
+            hint = "Hint: Count favorable outcomes over total outcomes.";
+            break;
+
+        case "regression":
+            description = "Find the line of best fit for the dataset (1,2), (2,4), (3,6).";
+            solution = "y = 2x";
+            hint = "Hint: Use the least squares method.";
+            break;
+
+        default:
+            description = "Invalid topic for Probability and Statistics.";
+            solution = "N/A";
+            break;
+    }
+
+    return new Problem
+    {
+        Id = random.Next(1, 10000),
+        Description = description,
+        Solution = solution,
+        Hint = hint,
+        Category = "Probability and Statistics",
+        Difficulty = difficulty
+    };
+}
+
 
 
         public Problem GenerateAdaptiveProblem(string userId, UserProgressService userProgressService)

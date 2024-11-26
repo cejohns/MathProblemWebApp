@@ -51,3 +51,13 @@ CREATE TABLE Definitions (
     FOREIGN KEY (TopicID) REFERENCES Topics(TopicID)
 );
 GO
+
+
+INSERT INTO Subjects (Name, Description)
+VALUES ('Geometry Basics', 'Basic concepts of geometry.');
+
+INSERT INTO Topics (SubjectID, Name, Description)
+VALUES (1, 'Types of Angles', 'Acute, obtuse, right, and other angle types.');
+
+INSERT INTO Problems (TopicID, Description, Solution)
+VALUES (1, 'What is the measure of a right angle?', '90°');
