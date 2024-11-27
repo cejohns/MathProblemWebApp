@@ -742,6 +742,158 @@ public Problem GenerateTrigonometryProblem(string topic = "trig ratios")
             complexity = ComplexityLevel.Advanced;
             break;
 
+        // 5. Inverse Trigonometric Functions
+        case "inverse trig function":
+            description = $"Evaluate arcsin(0.5).";
+            solution = $"θ = 30° or π/6";
+            hint = "Hint: arcsin(0.5) represents the angle whose sine is 0.5.";
+            difficulty = DifficultyLevel.Medium;
+            complexity = ComplexityLevel.Intermediate;
+            break;
+
+        case "graph inverse trig":
+            description = $"Graph the function y = arctan(x).";
+            solution = "The graph is an increasing curve with horizontal asymptotes at y = ±π/2.";
+            hint = "Hint: The arctan(x) function is the inverse of tan(x) and has a restricted range.";
+            difficulty = DifficultyLevel.Hard;
+            complexity = ComplexityLevel.Advanced;
+            break;
+
+        case "inverse trig application":
+            description = $"Find the angle θ such that cos(θ) = 0.6 using inverse trigonometric functions.";
+            solution = $"θ ≈ 53.13° or 0.93 radians";
+            hint = "Hint: Use arccos(0.6) to find the angle.";
+            difficulty = DifficultyLevel.Medium;
+            complexity = ComplexityLevel.Intermediate;
+            break;
+
+        // 6. Law of Sines and Law of Cosines
+       
+
+         // 7. Trigonometric Applications
+        case "angle of elevation":
+            description = $"A person standing 50 meters away from a building observes the top at an angle of elevation of 30°. Find the height of the building.";
+            solution = $"Height = {50 * Math.Tan(30 * Math.PI / 180):F2} meters";
+            hint = "Hint: Use the tangent function: tan(θ) = opposite/adjacent.";
+            difficulty = DifficultyLevel.Medium;
+            complexity = ComplexityLevel.Intermediate;
+            break;
+
+        case "circular motion":
+            int radius = random.Next(3, 10);
+            int speed = random.Next(1, 5);
+            description = $"An object moves in a circle with radius {radius} meters at a speed of {speed} m/s. Find its angular velocity.";
+            solution = $"{(double)speed / radius:F2} rad/s";
+            hint = "Hint: Angular velocity = linear velocity / radius.";
+            difficulty = DifficultyLevel.Medium;
+            complexity = ComplexityLevel.Intermediate;
+            break;
+
+        case "harmonic motion":
+            int period = random.Next(1, 5);
+            description = $"Given a mass-spring system with a period of {period} seconds, find its frequency.";
+            solution = $"{1.0 / period:F2} Hz";
+            hint = "Hint: Frequency = 1 / Period.";
+            difficulty = DifficultyLevel.Easy;
+            complexity = ComplexityLevel.Simple;
+            break;
+
+        // 8. Polar Coordinates and Complex Numbers
+        case "polar conversion":
+            int x = random.Next(1, 10);
+            int y = random.Next(1, 10);
+            double r = Math.Sqrt(x * x + y * y);
+            double theta = Math.Atan2(y, x) * (180 / Math.PI);
+            description = $"Convert the point ({x}, {y}) to polar coordinates.";
+            solution = $"Polar coordinates: (r = {r:F2}, θ = {theta:F2}°)";
+            hint = "Hint: Use r = √(x² + y²) and θ = arctan(y/x).";
+            difficulty = DifficultyLevel.Medium;
+            complexity = ComplexityLevel.Intermediate;
+            break;
+
+        case "polar graphing":
+            description = $"Graph the polar equation r = 2 + 2cos(θ).";
+            solution = "This is a limacon graph.";
+            hint = "Hint: Identify the type of graph (circle, limacon, rose, etc.).";
+            difficulty = DifficultyLevel.Hard;
+            complexity = ComplexityLevel.Advanced;
+            break;
+
+        case "complex polar":
+            int realPart = random.Next(1, 5);
+            int imaginaryPart = random.Next(1, 5);
+            double magnitude = Math.Sqrt(realPart * realPart + imaginaryPart * imaginaryPart);
+            double angle = Math.Atan2(imaginaryPart, realPart) * (180 / Math.PI);
+            description = $"Convert the complex number {realPart} + {imaginaryPart}i to polar form.";
+            solution = $"Polar form: {magnitude:F2}(cos({angle:F2}°) + i sin({angle:F2}°))";
+            hint = "Hint: Use magnitude = √(a² + b²) and angle = arctan(b/a).";
+            difficulty = DifficultyLevel.Medium;
+            complexity = ComplexityLevel.Intermediate;
+            break;
+
+        // 9. Vectors and Their Applications
+        case "vector operations":
+            int u1 = random.Next(1, 5);
+            int u2 = random.Next(1, 5);
+            int v1 = random.Next(1, 5);
+            int v2 = random.Next(1, 5);
+            description = $"Given vectors u = [{u1}, {u2}] and v = [{v1}, {v2}], find u + v.";
+            solution = $"[{u1 + v1}, {u2 + v2}]";
+            hint = "Hint: Add the corresponding components.";
+            difficulty = DifficultyLevel.Easy;
+            complexity = ComplexityLevel.Simple;
+            break;
+
+        case "dot product":
+            u1 = random.Next(1, 5);
+            u2 = random.Next(1, 5);
+            v1 = random.Next(1, 5);
+            v2 = random.Next(1, 5);
+            description = $"Find the dot product of vectors u = [{u1}, {u2}] and v = [{v1}, {v2}].";
+            solution = $"{u1 * v1 + u2 * v2}";
+            hint = "Hint: Dot product = u₁v₁ + u₂v₂.";
+            difficulty = DifficultyLevel.Medium;
+            complexity = ComplexityLevel.Intermediate;
+            break;
+
+        // 10. Parametric Equations
+        case "parametric graph":
+            description = $"Graph the parametric equations x = t² and y = 2t for -2 ≤ t ≤ 2.";
+            solution = "The graph is a parabola opening upwards.";
+            hint = "Hint: Plot the points for different values of t.";
+            difficulty = DifficultyLevel.Medium;
+            complexity = ComplexityLevel.Intermediate;
+            break;
+
+        case "parametric conversion":
+            description = $"Convert the parametric equations x = 3t, y = 2t to a Cartesian equation.";
+            solution = "y = (2/3)x";
+            hint = "Hint: Solve for t in terms of x or y, then substitute.";
+            difficulty = DifficultyLevel.Medium;
+            complexity = ComplexityLevel.Intermediate;
+            break;
+
+        // 11. Trigonometric Form of Complex Numbers
+        case "trig complex":
+            realPart = random.Next(1, 5);
+            imaginaryPart = random.Next(1, 5);
+            magnitude = Math.Sqrt(realPart * realPart + imaginaryPart * imaginaryPart);
+            angle = Math.Atan2(imaginaryPart, realPart) * (180 / Math.PI);
+            description = $"Represent the complex number {realPart} + {imaginaryPart}i in trigonometric form.";
+            solution = $"{magnitude:F2}(cos({angle:F2}°) + i sin({angle:F2}°))";
+            hint = "Hint: Use magnitude = √(a² + b²) and angle = arctan(b/a).";
+            difficulty = DifficultyLevel.Medium;
+            complexity = ComplexityLevel.Intermediate;
+            break;
+
+        case "de moivre":
+            description = $"Use De Moivre’s Theorem to find (1 + i)^5.";
+            solution = "Use polar form: √2(cos(π/4) + i sin(π/4))^5 = 4√2(cos(5π/4) + i sin(5π/4))";
+            hint = "Hint: Convert to polar form, apply the theorem, and simplify.";
+            difficulty = DifficultyLevel.Hard;
+            complexity = ComplexityLevel.Advanced;
+            break;
+
         default:
             description = "Invalid topic for Trigonometry.";
             solution = "N/A";
