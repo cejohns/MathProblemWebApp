@@ -1576,17 +1576,80 @@ public Problem GenerateAbstractAlgebraProblem(string topic = "groups")
             description = "Prove that the set of integers under addition forms a group.";
             solution = "Solution involves verifying closure, associativity, identity, and inverse.";
             hint = "Hint: Use the group axioms.";
+            difficulty = DifficultyLevel.Medium;
+            complexity = ComplexityLevel.Intermediate;
+            break;
+
+        case "subgroups":
+            description = "Prove that the set of even integers under addition forms a subgroup of integers.";
+            solution = "Even integers form a subgroup as they satisfy closure, identity, and inverse.";
+            hint = "Hint: Use the subgroup test.";
+            difficulty = DifficultyLevel.Hard;
+            complexity = ComplexityLevel.Intermediate;
+            break;
+
+        case "cosets":
+            description = "Find the left cosets of H = {0, 2} in Z_4.";
+            solution = "{0, 2} and {1, 3}.";
+            hint = "Hint: Cosets are formed by adding elements of H to each element of Z_4.";
+            difficulty = DifficultyLevel.Hard;
+            complexity = ComplexityLevel.Advanced;
             break;
 
         case "rings":
             description = "Verify if (Z, +, ×) is a commutative ring.";
             solution = "Yes, integers form a commutative ring.";
             hint = "Hint: Check the ring axioms.";
+            difficulty = DifficultyLevel.Medium;
+            complexity = ComplexityLevel.Intermediate;
+            break;
+
+        case "fields":
+            description = "Determine if Q (rational numbers) is a field.";
+            solution = "Yes, Q is a field as it satisfies all field properties.";
+            hint = "Hint: Check field axioms such as commutativity, associativity, and existence of multiplicative inverses.";
+            difficulty = DifficultyLevel.Medium;
+            complexity = ComplexityLevel.Intermediate;
+            break;
+
+        case "polynomials":
+            description = "Factorize x^2 - 5x + 6 in Z.";
+            solution = "(x - 2)(x - 3)";
+            hint = "Hint: Use the factorization method.";
+            difficulty = DifficultyLevel.Medium;
+            complexity = ComplexityLevel.Simple;
+            break;
+
+        case "galois theory":
+            description = "Determine the Galois group of x^2 - 2 over Q.";
+            solution = "The Galois group is Z_2, corresponding to the field automorphism √2 ↦ -√2.";
+            hint = "Hint: Use field extensions and automorphism definitions.";
+            difficulty = DifficultyLevel.Hard;
+            complexity = ComplexityLevel.Advanced;
+            break;
+
+        case "eigenvalues":
+            description = "Find the eigenvalues of the matrix:\n| 2  1 |\n| 1  2 |";
+            solution = "Eigenvalues are 3 and 1.";
+            hint = "Hint: Solve the characteristic equation det(A - λI) = 0.";
+            difficulty = DifficultyLevel.Hard;
+            complexity = ComplexityLevel.Intermediate;
+            break;
+
+        case "modules":
+            description = "Prove that R^n (n-dimensional space over R) is a free module over R.";
+            solution = "Proof involves showing R^n is isomorphic to a direct sum of R.";
+            hint = "Hint: Use the definition of a free module.";
+            difficulty = DifficultyLevel.Hard;
+            complexity = ComplexityLevel.Advanced;
             break;
 
         default:
             description = "Invalid topic for Abstract Algebra.";
             solution = "N/A";
+            hint = "Hint: Choose a valid topic such as 'groups', 'rings', 'fields', or 'polynomials'.";
+            difficulty = DifficultyLevel.Easy;
+            complexity = ComplexityLevel.Simple;
             break;
     }
 
@@ -1598,9 +1661,10 @@ public Problem GenerateAbstractAlgebraProblem(string topic = "groups")
         Hint = hint,
         Category = "Abstract Algebra",
         Difficulty = difficulty,
-        Complexity  = complexity
+        Complexity = complexity
     };
 }
+
 
 public Problem GenerateProbabilityProblem(string topic = "probability")
 {
@@ -1733,9 +1797,166 @@ private double CalculateExpectedValue(int[] outcomes, double[] probabilities)
     return expectedValue;
 }
 
+public Problem GenerateRealAnalysisProblem(string topic = "continuity")
+{
+    string description = string.Empty;
+    string solution = string.Empty;
+    string hint = string.Empty;
+    DifficultyLevel difficulty = DifficultyLevel.Hard;
+    ComplexityLevel complexity = ComplexityLevel.Advanced;
+
+    switch (topic.ToLower())
+    {
+        case "continuity":
+            description = "Prove that f(x) = x^2 is continuous at x = 2.";
+            solution = "Solution involves using the definition of continuity: f(2) = lim x->2 f(x) = 4.";
+            hint = "Hint: Check the limit definition of continuity.";
+            break;
+
+        case "differentiation":
+            description = "Find the derivative of f(x) = sin(x) using the definition of the derivative.";
+            solution = "f'(x) = cos(x).";
+            hint = "Hint: Use lim h->0 [f(x+h) - f(x)] / h.";
+            break;
+
+        case "metric spaces":
+            description = "Prove that the Euclidean metric d(x, y) = ||x - y|| satisfies the triangle inequality.";
+            solution = "Use ||x - y|| + ||y - z|| >= ||x - z|| by the norm properties.";
+            hint = "Hint: Apply the properties of vector norms.";
+            break;
+
+        default:
+            description = "Invalid topic for Real Analysis.";
+            solution = "N/A";
+            break;
+    }
+
+    return new Problem
+    {
+        Id = random.Next(1, 10000),
+        Description = description,
+        Solution = solution,
+        Hint = hint,
+        Category = "Real Analysis",
+        Difficulty = difficulty,
+        Complexity = complexity
+    };
+}
+
+public Problem GenerateComplexAnalysisProblem(string topic = "complex functions")
+{
+    string description = string.Empty;
+    string solution = string.Empty;
+    string hint = string.Empty;
+    DifficultyLevel difficulty = DifficultyLevel.Hard;
+
+    switch (topic.ToLower())
+    {
+        case "complex functions":
+            description = "Evaluate f(z) = z^2 for z = 1 + i.";
+            solution = "f(z) = (1 + i)^2 = 1 + 2i - 1 = 2i.";
+            hint = "Hint: Use (a + bi)^2 = a^2 + 2abi + b^2.";
+            break;
+
+        case "conformal mapping":
+            description = "Show that f(z) = z^2 is a conformal map.";
+            solution = "Use the Cauchy-Riemann equations to prove f(z) is holomorphic.";
+            hint = "Hint: Check partial derivatives satisfy Cauchy-Riemann equations.";
+            break;
+
+        case "complex integration":
+            description = "Evaluate ∫_C (z^2) dz where C is the unit circle.";
+            solution = "Integral = 0 (by Cauchy-Goursat theorem).";
+            hint = "Hint: Use Cauchy-Goursat theorem for analytic functions.";
+            break;
+
+        default:
+            description = "Invalid topic for Complex Analysis.";
+            solution = "N/A";
+            break;
+    }
+
+    return new Problem
+    {
+        Id = random.Next(1, 10000),
+        Description = description,
+        Solution = solution,
+        Hint = hint,
+        Category = "Complex Analysis",
+        Difficulty = difficulty,
+        Complexity = ComplexityLevel.Advanced
+    };
+}
+
+public Problem GenerateTopologyProblem(string topic = "open and closed sets")
+{
+    string description = string.Empty;
+    string solution = string.Empty;
+    string hint = string.Empty;
+
+    switch (topic.ToLower())
+    {
+        case "open and closed sets":
+            description = "Prove that the interval (0, 1) is open in R.";
+            solution = "Use the definition of an open set: For any x in (0, 1), there exists ε > 0 such that (x - ε, x + ε) ⊆ (0, 1).";
+            hint = "Hint: Use the epsilon definition of openness.";
+            break;
+
+        default:
+            description = "Invalid topic for Topology.";
+            solution = "N/A";
+            break;
+    }
+
+    return new Problem
+    {
+        Id = random.Next(1, 10000),
+        Description = description,
+        Solution = solution,
+        Hint = hint,
+        Category = "Topology",
+        Difficulty = DifficultyLevel.Hard,
+        Complexity = ComplexityLevel.Advanced
+    };
+}
 
 
-        public Problem GenerateAdaptiveProblem(string userId, UserProgressService userProgressService)
+public Problem GenerateNumberTheoryProblem(string topic = "divisibility")
+{
+    string description = string.Empty;
+    string solution = string.Empty;
+    string hint = string.Empty;
+
+    switch (topic.ToLower())
+    {
+        case "divisibility":
+            description = "Prove that 3 divides 9n for any integer n.";
+            solution = "By definition of divisibility, 9n = 3(3n), so 3 divides 9n.";
+            hint = "Hint: Use the definition of divisibility.";
+            break;
+
+        default:
+            description = "Invalid topic for Number Theory.";
+            solution = "N/A";
+            break;
+    }
+
+    return new Problem
+    {
+        Id = random.Next(1, 10000),
+        Description = description,
+        Solution = solution,
+        Hint = hint,
+        Category = "Number Theory",
+        Difficulty = DifficultyLevel.Medium,
+        Complexity = ComplexityLevel.Intermediate
+    };
+}
+
+
+
+
+ public Problem GenerateAdaptiveProblem(string userId, UserProgressService userProgressService)
 {
     var userProfile = userProgressService.GetUserProfile(userId);
     DifficultyLevel difficulty = userProfile.CurrentDifficulty;
