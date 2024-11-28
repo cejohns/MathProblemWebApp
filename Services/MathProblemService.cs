@@ -913,28 +913,111 @@ public Problem GenerateTrigonometryProblem(string topic = "trig ratios")
 }
 
 
-public Problem GeneratePreCalculusProblem(string topic = "sequence")
+public Problem GeneratePreCalculusProblem(string topic = "functions")
 {
     string description = string.Empty;
     string solution = string.Empty;
     string hint = string.Empty;
     DifficultyLevel difficulty = DifficultyLevel.Medium;
+    ComplexityLevel complexity = ComplexityLevel.Simple;
 
     switch (topic.ToLower())
     {
-        case "sequence":
-            int firstTerm = random.Next(1, 10);
-            int commonDifference = random.Next(1, 5);
-            description = $"Find the 5th term of the arithmetic sequence starting with {firstTerm} and having a common difference of {commonDifference}.";
-            solution = $"{firstTerm + 4 * commonDifference}";
-            hint = "Hint: Use the formula Tn = a + (n-1)d.";
+        // Functions and Graphs
+        case "functions":
+            string[] functionTypes = { "linear", "quadratic", "exponential", "logarithmic", "trigonometric" };
+            string selectedFunction = functionTypes[random.Next(functionTypes.Length)];
+            description = $"Describe the graph of a {selectedFunction} function and identify its domain and range.";
+            solution = "Solution depends on the function type; include specific properties.";
+            hint = "Hint: Linear is a straight line, quadratic is a parabola, etc.";
+            difficulty = DifficultyLevel.Easy;
             break;
 
-        case "limit":
+        case "graph transformations":
+            int shift = random.Next(-5, 6);
+            description = $"Describe the transformations of the graph of f(x) = x² if it is shifted {shift} units to the right and 3 units up.";
+            solution = $"The new equation is f(x) = (x - {shift})² + 3.";
+            hint = "Hint: Horizontal shifts affect the x term, vertical shifts affect the constant.";
+            difficulty = DifficultyLevel.Medium;
+            complexity = ComplexityLevel.Intermediate;
+            break;
+
+        case "inverse functions":
             int a = random.Next(1, 10);
-            description = $"Find the limit as x approaches {a} of (x² - {a * a}) / (x - {a}).";
-            solution = $"{2 * a}"; // Simplify (x² - a²) to (x - a)(x + a)
-            hint = "Hint: Simplify the expression by factoring.";
+            description = $"Find the inverse of f(x) = {a}x + 3.";
+            solution = $"f⁻¹(x) = (x - 3)/{a}";
+            hint = "Hint: Swap x and y, then solve for y.";
+            difficulty = DifficultyLevel.Medium;
+            complexity = ComplexityLevel.Intermediate;
+            break;
+
+        case "polynomial division":
+            int b = random.Next(1, 5);
+            int c = random.Next(1, 5);
+            description = $"Perform synthetic division for the polynomial x³ + {b}x² + {c}x + 4 divided by x - 2.";
+            solution = "Synthetic division steps.";
+            hint = "Hint: Use the synthetic division method.";
+            difficulty = DifficultyLevel.Hard;
+            complexity = ComplexityLevel.Advanced;
+            break;
+
+        case "exponential":
+            int baseValue = random.Next(2, 5);
+            int power = random.Next(1, 10);
+            description = $"Simplify: {baseValue}^{power}.";
+            solution = $"{Math.Pow(baseValue, power)}";
+            hint = "Hint: Use properties of exponents.";
+            difficulty = DifficultyLevel.Easy;
+            break;
+
+        case "logarithm":
+            int number = random.Next(1, 100);
+            description = $"Solve: log({number}).";
+            solution = $"{Math.Round(Math.Log10(number), 2)}";
+            hint = "Hint: log(x) is the power to which 10 must be raised to equal x.";
+            difficulty = DifficultyLevel.Medium;
+            break;
+
+        case "trigonometry":
+            int angle = random.Next(0, 361);
+            string[] trigFunctions = { "sin", "cos", "tan" };
+            string trigFunc = trigFunctions[random.Next(trigFunctions.Length)];
+            description = $"Evaluate {trigFunc}({angle}°) using the unit circle.";
+            solution = $"Value depends on the unit circle at {angle}°.";
+            hint = "Hint: Refer to the unit circle.";
+            difficulty = DifficultyLevel.Medium;
+            break;
+
+        // Sequences and Series
+        case "arithmetic sequence":
+            int firstTerm = random.Next(1, 10);
+            int commonDifference = random.Next(1, 10);
+            int n = random.Next(1, 20);
+            description = $"Find the nth term of the arithmetic sequence with first term {firstTerm} and common difference {commonDifference}, where n = {n}.";
+            solution = $"{firstTerm + (n - 1) * commonDifference}";
+            hint = "Hint: Use the formula aₙ = a₁ + (n-1)d.";
+            difficulty = DifficultyLevel.Medium;
+            break;
+
+        case "geometric sequence":
+            firstTerm = random.Next(1, 5);
+            int commonRatio = random.Next(2, 5);
+            n = random.Next(1, 10);
+            description = $"Find the nth term of the geometric sequence with first term {firstTerm} and common ratio {commonRatio}, where n = {n}.";
+            solution = $"{firstTerm * Math.Pow(commonRatio, n - 1):F2}";
+            hint = "Hint: Use the formula aₙ = a₁r^(n-1).";
+            difficulty = DifficultyLevel.Medium;
+            complexity = ComplexityLevel.Intermediate;
+            break;
+
+        // Limits
+        case "limits":
+            int limitX = random.Next(1, 10);
+            description = $"Find the limit as x approaches {limitX} of f(x) = x² + 2x + 1.";
+            solution = $"{Math.Pow(limitX, 2) + 2 * limitX + 1}";
+            hint = "Hint: Substitute x with the value it approaches.";
+            difficulty = DifficultyLevel.Hard;
+            complexity = ComplexityLevel.Intermediate;
             break;
 
         default:
@@ -950,9 +1033,11 @@ public Problem GeneratePreCalculusProblem(string topic = "sequence")
         Solution = solution,
         Hint = hint,
         Category = "Pre-Calculus",
-        Difficulty = difficulty
+        Difficulty = difficulty,
+        Complexity = complexity
     };
 }
+
 
 public Problem GenerateCalculusProblem(string topic = "derivative")
 {
@@ -960,28 +1045,118 @@ public Problem GenerateCalculusProblem(string topic = "derivative")
     string solution = string.Empty;
     string hint = string.Empty;
     DifficultyLevel difficulty = DifficultyLevel.Hard;
+    ComplexityLevel complexity = ComplexityLevel.Intermediate;
 
     switch (topic.ToLower())
     {
+        // Calculus 1: Limits and Continuity
+        case "limit":
+            int a = random.Next(1, 10);
+            description = $"Find the limit as x approaches {a} for f(x) = x^2 + 3x + 5.";
+            solution = $"{a * a + 3 * a + 5}";
+            hint = "Hint: Substitute the value of x directly.";
+            difficulty = DifficultyLevel.Medium;
+            complexity = ComplexityLevel.Simple;
+            break;
+
+        case "continuity":
+            description = "Is the function f(x) = 1/(x - 3) continuous at x = 3? Justify your answer.";
+            solution = "No, the function is undefined at x = 3 due to division by zero.";
+            hint = "Hint: Check the denominator for undefined points.";
+            difficulty = DifficultyLevel.Medium;
+            complexity = ComplexityLevel.Simple;
+            break;
+
+        // Calculus 1: Derivatives
         case "derivative":
             int coefficient = random.Next(1, 10);
             int exponent = random.Next(1, 5);
             description = $"Find the derivative of f(x) = {coefficient}x^{exponent}.";
             solution = $"{coefficient * exponent}x^{exponent - 1}";
             hint = "Hint: Use the power rule: d/dx [x^n] = nx^(n-1).";
+            difficulty = DifficultyLevel.Medium;
+            complexity = ComplexityLevel.Simple;
             break;
 
+        case "product rule":
+            int u = random.Next(1, 10);
+            int v = random.Next(1, 10);
+            description = $"Find the derivative of f(x) = ({u}x + 2)({v}x^2 - 3).";
+            solution = $"{u}({v * 2}x) + ({v}x^2 - 3)({u})";
+            hint = "Hint: Use the product rule: (uv)' = u'v + uv'.";
+            difficulty = DifficultyLevel.Hard;
+            complexity = ComplexityLevel.Intermediate;
+            break;
+
+        case "implicit differentiation":
+            description = "Find dy/dx if x^2 + y^2 = 25.";
+            solution = "-x/y";
+            hint = "Hint: Differentiate both sides with respect to x and solve for dy/dx.";
+            difficulty = DifficultyLevel.Hard;
+            complexity = ComplexityLevel.Intermediate;
+            break;
+
+        // Calculus 1: Applications of Derivatives
+        case "optimization":
+            description = "Find the maximum area of a rectangle with a perimeter of 20 units.";
+            solution = "25 units^2";
+            hint = "Hint: Use A = l * w and 2(l + w) = 20.";
+            difficulty = DifficultyLevel.Hard;
+            complexity = ComplexityLevel.Advanced;
+            break;
+
+        // Calculus 1: Integration
         case "integral":
             coefficient = random.Next(1, 10);
             exponent = random.Next(1, 5);
             description = $"Find the indefinite integral of f(x) = {coefficient}x^{exponent}.";
             solution = $"{coefficient / (exponent + 1)}x^{exponent + 1} + C";
             hint = "Hint: Use the formula ∫x^n dx = (1/(n+1))x^(n+1) + C.";
+            difficulty = DifficultyLevel.Medium;
+            complexity = ComplexityLevel.Intermediate;
+            break;
+
+        // Calculus 2: Sequences and Series
+        case "sequence":
+            int n = random.Next(1, 10);
+            description = $"Find the nth term of the arithmetic sequence with first term 3 and common difference 5, where n = {n}.";
+            solution = $"{3 + (n - 1) * 5}";
+            hint = "Hint: Use the formula aₙ = a₁ + (n-1)d.";
+            difficulty = DifficultyLevel.Easy;
+            complexity = ComplexityLevel.Simple;
+            break;
+
+        case "taylor series":
+            description = "Find the first three non-zero terms of the Taylor series for e^x about x = 0.";
+            solution = "1 + x + x^2/2!";
+            hint = "Hint: Use the formula for Taylor series expansion.";
+            difficulty = DifficultyLevel.Hard;
+            complexity = ComplexityLevel.Advanced;
+            break;
+
+        // Calculus 3: Multivariable Calculus
+        case "partial derivative":
+            description = "Find ∂f/∂x for f(x, y) = 3x^2y + y^2.";
+            solution = "6xy";
+            hint = "Hint: Differentiate with respect to x, treating y as constant.";
+            difficulty = DifficultyLevel.Hard;
+            complexity = ComplexityLevel.Intermediate;
+            break;
+
+        case "double integral":
+            description = "Evaluate ∬(x^2 + y^2) dA over the region 0 ≤ x ≤ 1, 0 ≤ y ≤ 1.";
+            solution = "2/3";
+            hint = "Hint: Use ∫∫(x^2 + y^2) dx dy with the given bounds.";
+            difficulty = DifficultyLevel.Hard;
+            complexity = ComplexityLevel.Advanced;
             break;
 
         default:
             description = "Invalid topic for Calculus.";
             solution = "N/A";
+            hint = "Hint: Select a valid topic such as 'derivative', 'limit', or 'integral'.";
+            difficulty = DifficultyLevel.Medium;
+            complexity = ComplexityLevel.Simple;
             break;
     }
 
@@ -992,9 +1167,11 @@ public Problem GenerateCalculusProblem(string topic = "derivative")
         Solution = solution,
         Hint = hint,
         Category = "Calculus",
-        Difficulty = difficulty
+        Difficulty = difficulty,
+        Complexity = complexity
     };
 }
+
 
 public Problem GenerateLinearAlgebraProblem(string topic = "matrix")
 {
@@ -1002,26 +1179,116 @@ public Problem GenerateLinearAlgebraProblem(string topic = "matrix")
     string solution = string.Empty;
     string hint = string.Empty;
     DifficultyLevel difficulty = DifficultyLevel.Hard;
+    ComplexityLevel complexity = ComplexityLevel.Advanced;
 
     switch (topic.ToLower())
     {
-        case "matrix":
-            description = "Find the determinant of the matrix:\n| 2  3 |\n| 1  4 |";
-            solution = "Determinant = 2(4) - 3(1) = 5";
-            hint = "Hint: Use the determinant formula for a 2x2 matrix: ad - bc.";
-            break;
-
-        case "vector":
+        // Vectors
+        case "vector magnitude":
             int x = random.Next(1, 10);
             int y = random.Next(1, 10);
             description = $"Find the magnitude of the vector ({x}, {y}).";
             solution = $"{Math.Sqrt(x * x + y * y):F2}";
             hint = "Hint: Use the formula √(x² + y²).";
+            difficulty = DifficultyLevel.Easy;
+            complexity = ComplexityLevel.Simple;
+            break;
+
+        case "dot product":
+            int u1 = random.Next(1, 10), u2 = random.Next(1, 10);
+            int v1 = random.Next(1, 10), v2 = random.Next(1, 10);
+            description = $"Find the dot product of u = ({u1}, {u2}) and v = ({v1}, {v2}).";
+            solution = $"{(u1 * v1 + u2 * v2)}";
+            hint = "Hint: Use the formula u • v = u1*v1 + u2*v2.";
+            difficulty = DifficultyLevel.Medium;
+            complexity = ComplexityLevel.Intermediate;
+            break;
+
+        case "cross product":
+            int a1 = random.Next(1, 10), a2 = random.Next(1, 10), a3 = random.Next(1, 10);
+            int b1 = random.Next(1, 10), b2 = random.Next(1, 10), b3 = random.Next(1, 10);
+            description = $"Find the cross product of vectors A = ({a1}, {a2}, {a3}) and B = ({b1}, {b2}, {b3}).";
+            solution = $"({a2 * b3 - a3 * b2}, {a3 * b1 - a1 * b3}, {a1 * b2 - a2 * b1})";
+            hint = "Hint: Use the determinant of the 3x3 matrix with i, j, k unit vectors.";
+            difficulty = DifficultyLevel.Hard;
+            complexity = ComplexityLevel.Advanced;
+            break;
+
+        // Matrices
+        case "matrix determinant":
+            description = "Find the determinant of the matrix:\n| 2  3 |\n| 1  4 |";
+            solution = "Determinant = 2(4) - 3(1) = 5";
+            hint = "Hint: Use the determinant formula for a 2x2 matrix: ad - bc.";
+            difficulty = DifficultyLevel.Easy;
+            complexity = ComplexityLevel.Simple;
+            break;
+
+        case "matrix multiplication":
+            description = "Multiply the matrices A = |1 2|, B = |3 4|.";
+            solution = "|7 10|";
+            hint = "Hint: Multiply rows of A by columns of B.";
+            difficulty = DifficultyLevel.Medium;
+            complexity = ComplexityLevel.Intermediate;
+            break;
+
+        // Determinants
+        case "determinant 3x3":
+            description = "Find the determinant of the matrix:\n| 1  2  3 |\n| 4  5  6 |\n| 7  8  9 |";
+            solution = "Determinant = 0"; // (Singular matrix example)
+            hint = "Hint: Expand along any row or column.";
+            difficulty = DifficultyLevel.Hard;
+            complexity = ComplexityLevel.Advanced;
+            break;
+
+        // Eigenvalues and Eigenvectors
+        case "eigenvalue":
+            description = "Find the eigenvalues of the matrix:\n| 2  1 |\n| 1  2 |.";
+            solution = "λ = 3, 1";
+            hint = "Hint: Solve det(A - λI) = 0.";
+            difficulty = DifficultyLevel.Hard;
+            complexity = ComplexityLevel.Advanced;
+            break;
+
+        case "eigenvector":
+            description = "Find an eigenvector corresponding to eigenvalue λ = 3 for the matrix:\n| 2  1 |\n| 1  2 |.";
+            solution = "(1, 1)";
+            hint = "Hint: Solve (A - λI)v = 0.";
+            difficulty = DifficultyLevel.Hard;
+            complexity = ComplexityLevel.Advanced;
+            break;
+
+        // Vector Spaces
+        case "linear independence":
+            description = "Determine if the vectors v1 = (1, 2, 3), v2 = (2, 4, 6) are linearly independent.";
+            solution = "No, they are linearly dependent.";
+            hint = "Hint: Check if one vector is a scalar multiple of the other.";
+            difficulty = DifficultyLevel.Hard;
+            complexity = ComplexityLevel.Advanced;
+            break;
+
+        case "rank of matrix":
+            description = "Find the rank of the matrix:\n| 1  2  3 |\n| 0  0  0 |\n| 4  5  6 |.";
+            solution = "Rank = 2";
+            hint = "Hint: Find the number of non-zero rows after row-reduction.";
+            difficulty = DifficultyLevel.Hard;
+            complexity = ComplexityLevel.Advanced;
+            break;
+
+        // Linear Transformations
+        case "transformation":
+            description = "Determine if the matrix A = |1  0|\n|0  1| represents a rotation, reflection, or scaling.";
+            solution = "Scaling with no transformation (Identity matrix).";
+            hint = "Hint: Consider how the matrix transforms a standard basis vector.";
+            difficulty = DifficultyLevel.Medium;
+            complexity = ComplexityLevel.Intermediate;
             break;
 
         default:
             description = "Invalid topic for Linear Algebra.";
             solution = "N/A";
+            hint = "Hint: Select a valid topic such as 'vector magnitude', 'eigenvalue', or 'matrix determinant'.";
+            difficulty = DifficultyLevel.Easy;
+            complexity = ComplexityLevel.Simple;
             break;
     }
 
@@ -1032,9 +1299,11 @@ public Problem GenerateLinearAlgebraProblem(string topic = "matrix")
         Solution = solution,
         Hint = hint,
         Category = "Linear Algebra",
-        Difficulty = difficulty
+        Difficulty = difficulty,
+        Complexity = complexity
     };
 }
+
 
 
 public Problem GenerateDifferentialEquationsProblem(string type = "ODE")
@@ -1043,24 +1312,114 @@ public Problem GenerateDifferentialEquationsProblem(string type = "ODE")
     string solution = string.Empty;
     string hint = string.Empty;
     DifficultyLevel difficulty = DifficultyLevel.Hard;
+    ComplexityLevel complexity = ComplexityLevel.Intermediate;
 
     switch (type.ToLower())
     {
-        case "ode":
-            description = "Solve the ordinary differential equation: dy/dx = 3x².";
-            solution = "y = x³ + C";
-            hint = "Hint: Integrate both sides with respect to x.";
+        // Ordinary Differential Equations (ODEs)
+        case "first-order ode":
+            int coefficient = random.Next(1, 5);
+            description = $"Solve the separable ODE: dy/dx = {coefficient}x.";
+            solution = $"y = {coefficient / 2.0}x² + C";
+            hint = "Hint: Separate variables and integrate both sides.";
+            difficulty = DifficultyLevel.Medium;
+            complexity = ComplexityLevel.Simple;
             break;
 
-        case "pde":
-            description = "Solve the partial differential equation: ∂u/∂t = ∂²u/∂x².";
-            solution = "Solution depends on boundary conditions (e.g., Fourier series).";
+        case "linear ode":
+            int p = random.Next(1, 5);
+            int q = random.Next(1, 5);
+            description = $"Solve the linear ODE: dy/dx + {p}y = {q}.";
+            solution = "Solution depends on integrating factor e^(∫P(x)dx).";
+            hint = "Hint: Find the integrating factor e^(∫P(x)dx).";
+            difficulty = DifficultyLevel.Hard;
+            complexity = ComplexityLevel.Intermediate;
+            break;
+
+        case "second-order homogeneous":
+            int a = random.Next(1, 5);
+            int b = random.Next(1, 5);
+            int c = random.Next(1, 5);
+            description = $"Solve the second-order homogeneous ODE: {a}y'' + {b}y' + {c}y = 0.";
+            solution = "Solution depends on roots of the characteristic equation.";
+            hint = "Hint: Find the roots of ar² + br + c = 0.";
+            difficulty = DifficultyLevel.Hard;
+            complexity = ComplexityLevel.Advanced;
+            break;
+
+        case "newton's law of cooling":
+            description = $"A body cools from 100°C to 70°C in 10 minutes. The surrounding temperature is 20°C. Find the temperature after 20 minutes.";
+            solution = "T(t) = 20 + (100 - 20)e^(-kt).";
+            hint = "Hint: Use Newton's Law of Cooling: dT/dt = -k(T - T_env).";
+            difficulty = DifficultyLevel.Medium;
+            complexity = ComplexityLevel.Intermediate;
+            break;
+
+        // Partial Differential Equations (PDEs)
+        case "heat equation":
+            description = "Solve the heat equation: ∂u/∂t = k∂²u/∂x².";
+            solution = "Solution depends on initial and boundary conditions.";
             hint = "Hint: Use separation of variables.";
+            difficulty = DifficultyLevel.Hard;
+            complexity = ComplexityLevel.Advanced;
+            break;
+
+        case "wave equation":
+            description = "Solve the wave equation: ∂²u/∂t² = c²∂²u/∂x².";
+            solution = "Solution depends on initial and boundary conditions.";
+            hint = "Hint: Use separation of variables or d'Alembert's solution.";
+            difficulty = DifficultyLevel.Hard;
+            complexity = ComplexityLevel.Advanced;
+            break;
+
+        case "laplace equation":
+            description = "Solve Laplace's equation: ∇²u = 0 in a 2D domain.";
+            solution = "Solution depends on boundary conditions.";
+            hint = "Hint: Use separation of variables or Fourier series.";
+            difficulty = DifficultyLevel.Hard;
+            complexity = ComplexityLevel.Advanced;
+            break;
+
+        // Systems of Differential Equations
+        case "linear system":
+            description = "Solve the system: dx/dt = x + 2y, dy/dt = -x + y.";
+            solution = "Solution depends on eigenvalues and eigenvectors.";
+            hint = "Hint: Find eigenvalues and eigenvectors of the coefficient matrix.";
+            difficulty = DifficultyLevel.Hard;
+            complexity = ComplexityLevel.Advanced;
+            break;
+
+        case "predator-prey":
+            description = "Solve the predator-prey model: dx/dt = x(1 - y), dy/dt = -y(1 - x).";
+            solution = "Solution depends on the equilibrium points.";
+            hint = "Hint: Analyze stability at equilibrium points.";
+            difficulty = DifficultyLevel.Hard;
+            complexity = ComplexityLevel.Advanced;
+            break;
+
+        // Advanced Topics
+        case "euler's method":
+            description = $"Approximate the solution of dy/dx = 2x with y(0) = 1 at x = 1 using Euler's method with step size h = 0.1.";
+            solution = "Solution depends on iterative approximation.";
+            hint = "Hint: Use the formula y_(n+1) = y_n + h*f(x_n, y_n).";
+            difficulty = DifficultyLevel.Medium;
+            complexity = ComplexityLevel.Intermediate;
+            break;
+
+        case "runge-kutta":
+            description = $"Approximate the solution of dy/dx = x² with y(0) = 1 at x = 1 using the 4th-order Runge-Kutta method.";
+            solution = "Solution depends on iterative calculation.";
+            hint = "Hint: Use k1, k2, k3, k4 for better approximation.";
+            difficulty = DifficultyLevel.Hard;
+            complexity = ComplexityLevel.Advanced;
             break;
 
         default:
             description = "Invalid type for Differential Equations.";
             solution = "N/A";
+            hint = "Hint: Select a valid topic such as 'first-order ODE', 'heat equation', or 'eigenvalues'.";
+            difficulty = DifficultyLevel.Easy;
+            complexity = ComplexityLevel.Simple;
             break;
     }
 
@@ -1071,9 +1430,11 @@ public Problem GenerateDifferentialEquationsProblem(string type = "ODE")
         Solution = solution,
         Hint = hint,
         Category = "Differential Equations",
-        Difficulty = difficulty
+        Difficulty = difficulty,
+        Complexity = complexity
     };
 }
+
 
 public Problem GenerateDiscreteMathProblem(string topic = "logic")
 {
@@ -1081,30 +1442,103 @@ public Problem GenerateDiscreteMathProblem(string topic = "logic")
     string solution = string.Empty;
     string hint = string.Empty;
     DifficultyLevel difficulty = DifficultyLevel.Medium;
+    ComplexityLevel complexity = ComplexityLevel.Intermediate;
 
     switch (topic.ToLower())
     {
+        // Logic
         case "logic":
             description = "Simplify the logical expression: (A ∧ B) ∨ (¬A ∧ B).";
             solution = "B";
             hint = "Hint: Use distribution and simplification rules.";
+            difficulty = DifficultyLevel.Easy;
+            complexity = ComplexityLevel.Simple;
             break;
 
-        case "graph theory":
-            description = "Find the shortest path between nodes A and E in a weighted graph.";
-            solution = "Solution depends on the graph (e.g., Dijkstra's algorithm).";
-            hint = "Hint: Use a shortest-path algorithm.";
+        case "predicate logic":
+            description = "Translate 'For all x, if x is a bird then x can fly' into predicate logic.";
+            solution = "∀x (Bird(x) → CanFly(x))";
+            hint = "Hint: Use universal quantifier and implication.";
+            difficulty = DifficultyLevel.Medium;
+            complexity = ComplexityLevel.Intermediate;
             break;
 
+        // Set Theory
         case "set theory":
             description = "Find A ∩ B if A = {1, 2, 3} and B = {2, 3, 4}.";
             solution = "{2, 3}";
             hint = "Hint: Intersection includes elements common to both sets.";
+            difficulty = DifficultyLevel.Easy;
+            complexity = ComplexityLevel.Simple;
             break;
+
+        case "venn diagram":
+            description = "Draw a Venn diagram for sets A = {1, 2}, B = {2, 3}, and C = {3, 4}.";
+            solution = "Visual representation: overlap between A, B, and C.";
+            hint = "Hint: Place shared elements in intersections.";
+            difficulty = DifficultyLevel.Medium;
+            complexity = ComplexityLevel.Intermediate;
+            break;
+
+        // Combinatorics
+        case "permutations":
+            int n = random.Next(5, 10);
+            int r = random.Next(2, n);
+            description = $"Find the number of permutations of {r} items from a set of {n}.";
+            solution = $"{Factorial(n) / Factorial(n - r)}";
+            hint = "Hint: Use the formula nPr = n! / (n-r)!";
+            difficulty = DifficultyLevel.Medium;
+            complexity = ComplexityLevel.Intermediate;
+            break;
+
+        case "combinations":
+            n = random.Next(5, 10);
+            r = random.Next(2, n);
+            description = $"Find the number of combinations of {r} items from a set of {n}.";
+            solution = $"{Factorial(n) / (Factorial(r) * Factorial(n - r))}";
+            hint = "Hint: Use the formula nCr = n! / (r!(n-r)!)";
+            difficulty = DifficultyLevel.Medium;
+            complexity = ComplexityLevel.Intermediate;
+            break;
+
+        // Graph Theory
+        case "graph theory":
+            description = "Find the shortest path between nodes A and E in a weighted graph.";
+            solution = "Solution depends on the graph (e.g., Dijkstra's algorithm).";
+            hint = "Hint: Use a shortest-path algorithm.";
+            difficulty = DifficultyLevel.Hard;
+            complexity = ComplexityLevel.Advanced;
+            break;
+
+        case "eulerian graph":
+            description = "Determine if the given graph is Eulerian.";
+            solution = "Check if all vertices have even degrees.";
+            hint = "Hint: An Eulerian graph has all vertices with even degrees.";
+            difficulty = DifficultyLevel.Medium;
+            complexity = ComplexityLevel.Intermediate;
+            break;
+
+        // Cryptography
+       case "rsa":
+        {
+            int p = 3, q = 11; // Example primes
+            int m = p * q, phi = (p - 1) * (q - 1);
+            int e = 3; // Public key exponent
+            description = $"Given p = {p}, q = {q}, and e = {e}, find the modulus n and φ(n).";
+            solution = $"n = {m}, φ(n) = {phi}";
+            hint = "Hint: n = p*q, φ(n) = (p-1)*(q-1).";
+            difficulty = DifficultyLevel.Hard;
+            complexity = ComplexityLevel.Advanced;
+            break;
+        }
+
 
         default:
             description = "Invalid topic for Discrete Mathematics.";
             solution = "N/A";
+            hint = "Hint: Choose a valid topic such as 'logic', 'set theory', or 'graph theory'.";
+            difficulty = DifficultyLevel.Easy;
+            complexity = ComplexityLevel.Simple;
             break;
     }
 
@@ -1115,9 +1549,18 @@ public Problem GenerateDiscreteMathProblem(string topic = "logic")
         Solution = solution,
         Hint = hint,
         Category = "Discrete Mathematics",
-        Difficulty = difficulty
+        Difficulty = difficulty,
+        Complexity = complexity,
     };
 }
+
+// Helper function for factorial calculation
+private int Factorial(int num)
+{
+    if (num <= 1) return 1;
+    return num * Factorial(num - 1);
+}
+
 
 public Problem GenerateAbstractAlgebraProblem(string topic = "groups")
 {
@@ -1125,6 +1568,7 @@ public Problem GenerateAbstractAlgebraProblem(string topic = "groups")
     string solution = string.Empty;
     string hint = string.Empty;
     DifficultyLevel difficulty = DifficultyLevel.Hard;
+    ComplexityLevel complexity = ComplexityLevel.Advanced;
 
     switch (topic.ToLower())
     {
@@ -1153,7 +1597,8 @@ public Problem GenerateAbstractAlgebraProblem(string topic = "groups")
         Solution = solution,
         Hint = hint,
         Category = "Abstract Algebra",
-        Difficulty = difficulty
+        Difficulty = difficulty,
+        Complexity  = complexity
     };
 }
 
@@ -1163,24 +1608,102 @@ public Problem GenerateProbabilityProblem(string topic = "probability")
     string solution = string.Empty;
     string hint = string.Empty;
     DifficultyLevel difficulty = DifficultyLevel.Medium;
+    ComplexityLevel complexity = ComplexityLevel.Intermediate;
 
     switch (topic.ToLower())
     {
-        case "probability":
-            description = "What is the probability of rolling a sum of 7 with two dice?";
-            solution = "6/36 or 1/6";
-            hint = "Hint: Count favorable outcomes over total outcomes.";
+        // Basic Probability
+        case "basic probability":
+            description = "What is the probability of drawing an Ace from a standard deck of 52 cards?";
+            solution = "4/52 or 1/13";
+            hint = "Hint: There are 4 Aces in a deck.";
+            difficulty = DifficultyLevel.Easy;
+            complexity = ComplexityLevel.Simple;
             break;
 
-        case "regression":
+        case "conditional probability":
+            description = "Given P(A) = 0.4, P(B) = 0.5, and P(A ∩ B) = 0.2, find P(A | B).";
+            solution = "P(A | B) = P(A ∩ B) / P(B) = 0.2 / 0.5 = 0.4";
+            hint = "Hint: Use the formula P(A | B) = P(A ∩ B) / P(B).";
+            difficulty = DifficultyLevel.Medium;
+            complexity = ComplexityLevel.Intermediate;
+            break;
+
+        // Counting Methods
+        case "permutations":
+            int n = random.Next(5, 10);
+            int r = random.Next(2, n);
+            description = $"Find the number of ways to arrange {r} objects out of {n} distinct objects.";
+            solution = $"{Factorial(n) / Factorial(n - r)}";
+            hint = "Hint: Use the formula nPr = n! / (n-r)!";
+            difficulty = DifficultyLevel.Medium;
+            complexity = ComplexityLevel.Simple;
+            break;
+
+        case "combinations":
+            n = random.Next(5, 10);
+            r = random.Next(2, n);
+            description = $"Find the number of ways to choose {r} objects from {n} distinct objects.";
+            solution = $"{Factorial(n) / (Factorial(r) * Factorial(n - r))}";
+            hint = "Hint: Use the formula nCr = n! / (r!(n-r)!)";
+            difficulty = DifficultyLevel.Medium;
+            complexity = ComplexityLevel.Simple;
+            break;
+
+        // Random Variables
+        case "expected value":
+            int[] outcomes = { 1, 2, 3, 4, 5, 6 };
+            double[] probabilities = { 1.0 / 6, 1.0 / 6, 1.0 / 6, 1.0 / 6, 1.0 / 6, 1.0 / 6 };
+            description = "Find the expected value of a fair six-sided die.";
+            solution = $"{CalculateExpectedValue(outcomes, probabilities)}";
+            hint = "Hint: Use the formula E(X) = Σ[x * P(x)].";
+            difficulty = DifficultyLevel.Medium;
+            complexity = ComplexityLevel.Intermediate;
+            break;
+
+        case "variance":
+            description = "Find the variance of a fair six-sided die.";
+            solution = "Variance = E(X²) - [E(X)]²";
+            hint = "Hint: Use the formula Var(X) = E(X²) - [E(X)]².";
+            difficulty = DifficultyLevel.Hard;
+            complexity = ComplexityLevel.Advanced;
+            break;
+
+        // Statistical Inference
+        case "confidence interval":
+            int sampleMean = random.Next(50, 100);
+            int sampleSize = random.Next(10, 30);
+            double stdDev = random.Next(5, 15);
+            description = $"Find the 95% confidence interval for a sample mean of {sampleMean} with standard deviation {stdDev} and sample size {sampleSize}.";
+            solution = "Use the formula CI = Mean ± (Z * (StdDev / √n))";
+            hint = "Hint: Z-value for 95% confidence is 1.96.";
+            difficulty = DifficultyLevel.Hard;
+            complexity = ComplexityLevel.Advanced;
+            break;
+
+        // Regression Analysis
+        case "linear regression":
             description = "Find the line of best fit for the dataset (1,2), (2,4), (3,6).";
             solution = "y = 2x";
             hint = "Hint: Use the least squares method.";
+            difficulty = DifficultyLevel.Medium;
+            complexity = ComplexityLevel.Intermediate;
+            break;
+
+        case "logistic regression":
+            description = "Explain how logistic regression can predict a binary outcome (e.g., pass/fail).";
+            solution = "Logistic regression predicts probabilities using the sigmoid function.";
+            hint = "Hint: The sigmoid function is 1 / (1 + e^(-z)).";
+            difficulty = DifficultyLevel.Hard;
+            complexity = ComplexityLevel.Advanced;
             break;
 
         default:
             description = "Invalid topic for Probability and Statistics.";
             solution = "N/A";
+            hint = "Hint: Select a valid topic such as 'basic probability', 'expected value', or 'confidence interval'.";
+            difficulty = DifficultyLevel.Easy;
+            complexity = ComplexityLevel.Simple;
             break;
     }
 
@@ -1191,8 +1714,23 @@ public Problem GenerateProbabilityProblem(string topic = "probability")
         Solution = solution,
         Hint = hint,
         Category = "Probability and Statistics",
-        Difficulty = difficulty
+        Difficulty = difficulty,
+        Complexity = complexity
     };
+}
+
+// Helper function to calculate factorial
+
+
+// Helper function to calculate expected value
+private double CalculateExpectedValue(int[] outcomes, double[] probabilities)
+{
+    double expectedValue = 0.0;
+    for (int i = 0; i < outcomes.Length; i++)
+    {
+        expectedValue += outcomes[i] * probabilities[i];
+    }
+    return expectedValue;
 }
 
 
