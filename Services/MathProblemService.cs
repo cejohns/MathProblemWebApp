@@ -1807,6 +1807,18 @@ public Problem GenerateRealAnalysisProblem(string topic = "continuity")
 
     switch (topic.ToLower())
     {
+        case "sequences":
+            description = "Prove that the sequence a_n = 1/n converges and find its limit.";
+            solution = "The sequence converges to 0 as n approaches infinity.";
+            hint = "Hint: Use the definition of the limit of a sequence.";
+            break;
+
+        case "series":
+            description = "Determine if the series ∑ 1/n^2 converges.";
+            solution = "The series converges by the p-series test (p = 2 > 1).";
+            hint = "Hint: Apply the p-series test for convergence.";
+            break;
+
         case "continuity":
             description = "Prove that f(x) = x^2 is continuous at x = 2.";
             solution = "Solution involves using the definition of continuity: f(2) = lim x->2 f(x) = 4.";
@@ -1814,15 +1826,45 @@ public Problem GenerateRealAnalysisProblem(string topic = "continuity")
             break;
 
         case "differentiation":
-            description = "Find the derivative of f(x) = sin(x) using the definition of the derivative.";
-            solution = "f'(x) = cos(x).";
+            description = "Find the derivative of f(x) = x^3 using the definition of the derivative.";
+            solution = "f'(x) = 3x^2.";
             hint = "Hint: Use lim h->0 [f(x+h) - f(x)] / h.";
+            break;
+
+        case "integration":
+            description = "Evaluate the definite integral ∫ from 0 to 1 of x^2 dx.";
+            solution = "The integral equals 1/3.";
+            hint = "Hint: Use the power rule for integration.";
             break;
 
         case "metric spaces":
             description = "Prove that the Euclidean metric d(x, y) = ||x - y|| satisfies the triangle inequality.";
             solution = "Use ||x - y|| + ||y - z|| >= ||x - z|| by the norm properties.";
             hint = "Hint: Apply the properties of vector norms.";
+            break;
+
+        case "convergence tests":
+            description = "Use the ratio test to determine if the series ∑ n!/n^n converges.";
+            solution = "The series converges since the ratio test yields a limit less than 1.";
+            hint = "Hint: Apply the ratio test: lim n->∞ |a_(n+1)/a_n|.";
+            break;
+
+        case "riemann integration":
+            description = "Prove that f(x) = x is Riemann integrable on [0, 1].";
+            solution = "The function is continuous on [0, 1], hence Riemann integrable.";
+            hint = "Hint: Use the property that continuous functions are Riemann integrable.";
+            break;
+
+        case "power series":
+            description = "Find the radius of convergence for the series ∑ x^n/n.";
+            solution = "The radius of convergence is R = 1.";
+            hint = "Hint: Apply the ratio test to determine R.";
+            break;
+
+        case "uniform convergence":
+            description = "Prove that the sequence of functions f_n(x) = x/n converges uniformly on [0, 1].";
+            solution = "Uniform convergence is proven by showing sup|f_n(x) - f(x)| -> 0.";
+            hint = "Hint: Use the definition of uniform convergence.";
             break;
 
         default:
@@ -1843,31 +1885,81 @@ public Problem GenerateRealAnalysisProblem(string topic = "continuity")
     };
 }
 
+
 public Problem GenerateComplexAnalysisProblem(string topic = "complex functions")
 {
     string description = string.Empty;
     string solution = string.Empty;
     string hint = string.Empty;
     DifficultyLevel difficulty = DifficultyLevel.Hard;
+    ComplexityLevel complexity = ComplexityLevel.Advanced;
 
     switch (topic.ToLower())
     {
-        case "complex functions":
-            description = "Evaluate f(z) = z^2 for z = 1 + i.";
-            solution = "f(z) = (1 + i)^2 = 1 + 2i - 1 = 2i.";
-            hint = "Hint: Use (a + bi)^2 = a^2 + 2abi + b^2.";
+        case "complex numbers":
+            description = "Find the modulus and argument of the complex number z = 3 + 4i.";
+            solution = "Modulus = 5, Argument = arctan(4/3).";
+            hint = "Hint: Use |z| = sqrt(a^2 + b^2) and arg(z) = arctan(b/a).";
             break;
 
-        case "conformal mapping":
-            description = "Show that f(z) = z^2 is a conformal map.";
-            solution = "Use the Cauchy-Riemann equations to prove f(z) is holomorphic.";
-            hint = "Hint: Check partial derivatives satisfy Cauchy-Riemann equations.";
+        case "polar form":
+            description = "Convert z = 1 + i to polar form.";
+            solution = "z = sqrt(2)e^(iπ/4).";
+            hint = "Hint: Use |z| = sqrt(a^2 + b^2) and θ = arctan(b/a).";
+            break;
+
+        case "de moivre's theorem":
+            description = "Find (1 + i)^5 using De Moivre’s theorem.";
+            solution = "Answer: -4 + 4i.";
+            hint = "Hint: Convert to polar form, apply (r cis θ)^n = r^n cis(nθ).";
+            break;
+
+        case "cauchy-riemann":
+            description = "Verify if f(z) = z^2 + z̅ is analytic.";
+            solution = "Not analytic, as Cauchy-Riemann equations are not satisfied.";
+            hint = "Hint: Check ∂u/∂x = ∂v/∂y and ∂u/∂y = -∂v/∂x.";
             break;
 
         case "complex integration":
-            description = "Evaluate ∫_C (z^2) dz where C is the unit circle.";
-            solution = "Integral = 0 (by Cauchy-Goursat theorem).";
-            hint = "Hint: Use Cauchy-Goursat theorem for analytic functions.";
+            description = "Evaluate ∫_C (1/z) dz, where C is the unit circle centered at the origin.";
+            solution = "Integral = 2πi.";
+            hint = "Hint: Use Cauchy’s Integral Formula.";
+            break;
+
+        case "residue theorem":
+            description = "Find the residue of f(z) = 1/(z - 1)^2 at z = 1.";
+            solution = "Residue = 0.";
+            hint = "Hint: Use residue formula for poles.";
+            break;
+
+        case "laurent series":
+            description = "Find the Laurent series expansion of f(z) = 1/(z - 1) around z = 1.";
+            solution = "Series: 1/(z - 1).";
+            hint = "Hint: This is already the Laurent series for this singularity.";
+            break;
+
+        case "conformal mapping":
+            description = "Show that f(z) = 1/z is a conformal map (excluding z = 0).";
+            solution = "Use the Cauchy-Riemann equations and geometric properties of inversion.";
+            hint = "Hint: Prove that angles are preserved under the mapping.";
+            break;
+
+        case "singularities":
+            description = "Classify the singularity of f(z) = e^(1/z) at z = 0.";
+            solution = "Essential singularity.";
+            hint = "Hint: Use Casorati-Weierstrass theorem.";
+            break;
+
+        case "fourier series":
+            description = "Find the Fourier series of f(x) = x on [-π, π].";
+            solution = "Series: f(x) = Σ(-1)^(n+1)(2/n)sin(nx) for n = 1, 2, ....";
+            hint = "Hint: Use Fourier series coefficients for sine functions.";
+            break;
+
+        case "riemann mapping theorem":
+            description = "State the Riemann Mapping Theorem and give an example of its application.";
+            solution = "Any simply connected open subset of C (except C itself) can be conformally mapped to the unit disk.";
+            hint = "Hint: Consider domains like the upper half-plane.";
             break;
 
         default:
@@ -1884,15 +1976,18 @@ public Problem GenerateComplexAnalysisProblem(string topic = "complex functions"
         Hint = hint,
         Category = "Complex Analysis",
         Difficulty = difficulty,
-        Complexity = ComplexityLevel.Advanced
+        Complexity = complexity
     };
 }
+
 
 public Problem GenerateTopologyProblem(string topic = "open and closed sets")
 {
     string description = string.Empty;
     string solution = string.Empty;
     string hint = string.Empty;
+    DifficultyLevel difficulty = DifficultyLevel.Hard;
+    ComplexityLevel complexity = ComplexityLevel.Advanced;
 
     switch (topic.ToLower())
     {
@@ -1900,6 +1995,80 @@ public Problem GenerateTopologyProblem(string topic = "open and closed sets")
             description = "Prove that the interval (0, 1) is open in R.";
             solution = "Use the definition of an open set: For any x in (0, 1), there exists ε > 0 such that (x - ε, x + ε) ⊆ (0, 1).";
             hint = "Hint: Use the epsilon definition of openness.";
+            difficulty = DifficultyLevel.Medium;
+            complexity = ComplexityLevel.Intermediate;
+            break;
+
+        case "compactness":
+            description = "Prove that the interval [0, 1] is compact in R.";
+            solution = "By the Heine-Borel theorem, a subset of R is compact if it is closed and bounded. [0, 1] satisfies these conditions.";
+            hint = "Hint: Show the interval is closed and bounded.";
+            difficulty = DifficultyLevel.Medium;
+            complexity = ComplexityLevel.Intermediate;
+            break;
+
+        case "connectedness":
+            description = "Prove that the interval [0, 1] is connected in R.";
+            solution = "Intervals in R are connected because they cannot be partitioned into two non-empty disjoint open sets.";
+            hint = "Hint: Use the definition of connectedness and properties of intervals.";
+            difficulty = DifficultyLevel.Medium;
+            complexity = ComplexityLevel.Simple;
+            break;
+
+        case "metric spaces":
+            description = "Prove that the Euclidean metric d(x, y) = |x - y| satisfies the triangle inequality.";
+            solution = "The Euclidean metric satisfies |x - z| ≤ |x - y| + |y - z| by properties of absolute values.";
+            hint = "Hint: Expand and simplify using |a + b| ≤ |a| + |b|.";
+            difficulty = DifficultyLevel.Hard;
+            complexity = ComplexityLevel.Intermediate;
+            break;
+
+        case "subspace topology":
+            description = "Given X = R and A = (0, 1), describe the subspace topology on A.";
+            solution = "The subspace topology on A consists of all intersections of open sets in R with A (e.g., (0, 1), (a, b) ∩ (0, 1) for 0 < a < b < 1).";
+            hint = "Hint: The open sets in the subspace topology are the intersections of open sets of X with A.";
+            difficulty = DifficultyLevel.Medium;
+            complexity = ComplexityLevel.Intermediate;
+            break;
+
+        case "quotient topology":
+            description = "Define the topology on a circle S1 obtained by identifying the endpoints of [0, 1].";
+            solution = "The quotient topology identifies 0 and 1 in [0, 1] and inherits the topology from [0, 1].";
+            hint = "Hint: Use the definition of a quotient map.";
+            difficulty = DifficultyLevel.Hard;
+            complexity = ComplexityLevel.Advanced;
+            break;
+
+        case "homeomorphisms":
+            description = "Prove that (0, 1) and R are homeomorphic.";
+            solution = "The map f(x) = tan(π(x - 1/2)) is a bijection, continuous with a continuous inverse.";
+            hint = "Hint: Construct a bijective map and verify continuity and invertibility.";
+            difficulty = DifficultyLevel.Hard;
+            complexity = ComplexityLevel.Advanced;
+            break;
+
+        case "fundamental group":
+            description = "Compute the fundamental group of the circle S1.";
+            solution = "The fundamental group of S1 is isomorphic to Z (the integers), representing winding numbers.";
+            hint = "Hint: Use the definition of the fundamental group and loops on S1.";
+            difficulty = DifficultyLevel.Hard;
+            complexity = ComplexityLevel.Advanced;
+            break;
+
+        case "covering spaces":
+            description = "Describe the universal cover of S1.";
+            solution = "The universal cover of S1 is the real line R, with the covering map p(t) = e^(2πit).";
+            hint = "Hint: Consider the periodicity of S1.";
+            difficulty = DifficultyLevel.Hard;
+            complexity = ComplexityLevel.Advanced;
+            break;
+
+        case "manifolds":
+            description = "Show that the sphere S2 is a 2-dimensional manifold.";
+            solution = "S2 is locally homeomorphic to R2, as every point on S2 has a neighborhood that can be mapped to a subset of R2.";
+            hint = "Hint: Use stereographic projection to show the local homeomorphism.";
+            difficulty = DifficultyLevel.Hard;
+            complexity = ComplexityLevel.Advanced;
             break;
 
         default:
@@ -1915,10 +2084,11 @@ public Problem GenerateTopologyProblem(string topic = "open and closed sets")
         Solution = solution,
         Hint = hint,
         Category = "Topology",
-        Difficulty = DifficultyLevel.Hard,
-        Complexity = ComplexityLevel.Advanced
+        Difficulty = difficulty,
+        Complexity = complexity
     };
 }
+
 
 
 public Problem GenerateNumberTheoryProblem(string topic = "divisibility")
@@ -1926,6 +2096,8 @@ public Problem GenerateNumberTheoryProblem(string topic = "divisibility")
     string description = string.Empty;
     string solution = string.Empty;
     string hint = string.Empty;
+    DifficultyLevel difficulty = DifficultyLevel.Medium;
+    ComplexityLevel complexity = ComplexityLevel.Intermediate;
 
     switch (topic.ToLower())
     {
@@ -1933,6 +2105,72 @@ public Problem GenerateNumberTheoryProblem(string topic = "divisibility")
             description = "Prove that 3 divides 9n for any integer n.";
             solution = "By definition of divisibility, 9n = 3(3n), so 3 divides 9n.";
             hint = "Hint: Use the definition of divisibility.";
+            difficulty = DifficultyLevel.Easy;
+            complexity = ComplexityLevel.Simple;
+            break;
+
+        case "prime numbers":
+            description = "Prove that there are infinitely many primes.";
+            solution = "Use a proof by contradiction: Assume finitely many primes p1, p2, ..., pn and consider the number N = p1p2...pn + 1, which is not divisible by any of the primes, leading to a contradiction.";
+            hint = "Hint: Use the Fundamental Theorem of Arithmetic.";
+            difficulty = DifficultyLevel.Hard;
+            complexity = ComplexityLevel.Advanced;
+            break;
+
+        case "modular arithmetic":
+            description = "Solve the congruence 3x ≡ 7 (mod 10).";
+            solution = "x = 9 (mod 10).";
+            hint = "Hint: Use the modular inverse of 3 modulo 10.";
+            difficulty = DifficultyLevel.Medium;
+            complexity = ComplexityLevel.Intermediate;
+            break;
+
+        case "gcd and lcm":
+            description = "Find the GCD and LCM of 12 and 15.";
+            solution = "GCD = 3, LCM = 60 (using GCD × LCM = Product of numbers).";
+            hint = "Hint: Use the Euclidean algorithm for GCD and the formula for LCM.";
+            difficulty = DifficultyLevel.Easy;
+            complexity = ComplexityLevel.Simple;
+            break;
+
+        case "diophantine equations":
+            description = "Find integer solutions to the equation 15x + 10y = 5.";
+            solution = "x = 1 + 2k, y = -1 - 3k for any integer k.";
+            hint = "Hint: Use the Extended Euclidean Algorithm.";
+            difficulty = DifficultyLevel.Hard;
+            complexity = ComplexityLevel.Advanced;
+            break;
+
+        case "chinese remainder theorem":
+            description = "Solve the system of congruences: x ≡ 2 (mod 3) and x ≡ 3 (mod 5).";
+            solution = "x ≡ 8 (mod 15).";
+            hint = "Hint: Apply the Chinese Remainder Theorem.";
+            difficulty = DifficultyLevel.Medium;
+            complexity = ComplexityLevel.Intermediate;
+            break;
+
+        case "fermat's little theorem":
+            description = "Prove that 2^6 ≡ 1 (mod 7).";
+            solution = "By Fermat's Little Theorem, 2^(7-1) ≡ 1 (mod 7), so 2^6 ≡ 1 (mod 7).";
+            hint = "Hint: Use Fermat's Little Theorem for prime moduli.";
+            difficulty = DifficultyLevel.Medium;
+            complexity = ComplexityLevel.Intermediate;
+            break;
+
+        case "euler's totient function":
+            description = "Compute ϕ(12).";
+            solution = "ϕ(12) = 4 (1 - 1/2)(1 - 1/3) = 4.";
+            hint = "Hint: Use the formula for Euler's Totient Function.";
+            difficulty = DifficultyLevel.Medium;
+            complexity = ComplexityLevel.Intermediate;
+            break;
+
+        case "pythagorean triples":
+            description = "Find a Pythagorean triple where the hypotenuse is 13.";
+            solution = "One solution is (5, 12, 13).";
+            hint = "Hint: Use the formula x = m^2 - n^2, y = 2mn, z = m^2 + n^2.";
+            difficulty = DifficultyLevel.Medium;
+            complexity = ComplexityLevel.Intermediate;
             break;
 
         default:
@@ -1948,31 +2186,327 @@ public Problem GenerateNumberTheoryProblem(string topic = "divisibility")
         Solution = solution,
         Hint = hint,
         Category = "Number Theory",
-        Difficulty = DifficultyLevel.Medium,
-        Complexity = ComplexityLevel.Intermediate
+        Difficulty = difficulty,
+        Complexity = complexity
+    };
+}
+
+public Problem GenerateSetTheoryAndLogicProblem(string topic = "cardinality")
+{
+    string description = string.Empty;
+    string solution = string.Empty;
+    string hint = string.Empty;
+    DifficultyLevel difficulty = DifficultyLevel.Medium;
+    ComplexityLevel complexity = ComplexityLevel.Intermediate;
+
+    switch (topic.ToLower())
+    {
+        case "cardinality":
+            description = "Prove that the set of natural numbers ℕ has the same cardinality as the set of integers ℤ.";
+            solution = "Construct a bijection, e.g., f(n) = (-1)^n * ceil(n/2). This maps ℕ to ℤ uniquely.";
+            hint = "Hint: Construct a one-to-one and onto function between ℕ and ℤ.";
+            difficulty = DifficultyLevel.Hard;
+            complexity = ComplexityLevel.Advanced;
+            break;
+
+        case "ordinality":
+            description = "Explain the difference between the first ordinal ω and the cardinal ℵ₀.";
+            solution = "ω is the first infinite ordinal, representing an ordered set, while ℵ₀ is the cardinality of countable sets.";
+            hint = "Hint: Focus on the ordering properties of ordinals vs. size of cardinals.";
+            difficulty = DifficultyLevel.Hard;
+            complexity = ComplexityLevel.Advanced;
+            break;
+
+        case "axiomatic set theory":
+            description = "State and explain the Axiom of Choice and its equivalence to Zorn’s Lemma.";
+            solution = "Axiom of Choice: For every collection of non-empty sets, there exists a choice function selecting one element from each set. Equivalent to Zorn's Lemma: Every partially ordered set, in which every chain has an upper bound, contains at least one maximal element.";
+            hint = "Hint: Focus on applications in selecting elements from infinite collections.";
+            difficulty = DifficultyLevel.Hard;
+            complexity = ComplexityLevel.Advanced;
+            break;
+
+        case "venn diagrams":
+            description = "Given two sets A and B, draw a Venn diagram representing A ∩ B, A ∪ B, and A \\ B.";
+            solution = "Draw two overlapping circles; A ∩ B is the overlap, A ∪ B is the union of both circles, and A \\ B is the part of A not in B.";
+            hint = "Hint: Recall the visual representation of union, intersection, and set difference.";
+            difficulty = DifficultyLevel.Easy;
+            complexity = ComplexityLevel.Simple;
+            break;
+
+        case "power sets":
+            description = "Find the power set of A = {1, 2}.";
+            solution = "P(A) = {∅, {1}, {2}, {1, 2}}.";
+            hint = "Hint: A power set contains all subsets of a given set.";
+            difficulty = DifficultyLevel.Medium;
+            complexity = ComplexityLevel.Intermediate;
+            break;
+
+        case "relations":
+            description = "Determine whether the relation R = {(1, 1), (2, 2), (1, 2)} on A = {1, 2} is reflexive, symmetric, and transitive.";
+            solution = "Reflexive: No (missing (2, 2)); Symmetric: No (missing (2, 1)); Transitive: No (missing (1, 1)).";
+            hint = "Hint: Test the relation against definitions of reflexivity, symmetry, and transitivity.";
+            difficulty = DifficultyLevel.Medium;
+            complexity = ComplexityLevel.Intermediate;
+            break;
+
+        default:
+            description = "Invalid topic for Set Theory and Logic.";
+            solution = "N/A";
+            break;
+    }
+
+    return new Problem
+    {
+        Id = random.Next(1, 10000),
+        Description = description,
+        Solution = solution,
+        Hint = hint,
+        Category = "Set Theory and Logic",
+        Difficulty = difficulty,
+        Complexity = complexity
+    };
+}
+
+public Problem GenerateBusinessMathProblem(string topic = "simple interest")
+{
+    string description = string.Empty;
+    string solution = string.Empty;
+    string hint = string.Empty;
+    DifficultyLevel difficulty = DifficultyLevel.Medium;
+    ComplexityLevel complexity = ComplexityLevel.Intermediate;
+
+    switch (topic.ToLower())
+    {
+        case "simple interest":
+            int principal = random.Next(1000, 5000); // Principal amount
+            double rate = random.NextDouble() * (10 - 1) + 1; // Interest rate
+            int time = random.Next(1, 10); // Time in years
+            description = $"Calculate the simple interest for a principal amount of ${principal} at an annual interest rate of {rate:F2}% for {time} years.";
+            solution = $"Simple Interest = ${principal * rate * time / 100:F2}";
+            hint = "Hint: Use the formula I = P × r × t.";
+            break;
+
+        case "compound interest":
+            principal = random.Next(1000, 5000); // Principal amount
+            rate = random.NextDouble() * (10 - 1) + 1; // Interest rate
+            time = random.Next(1, 10); // Time in years
+            int n = random.Next(1, 4); // Compounding frequency
+            description = $"Calculate the compound interest for a principal amount of ${principal} at an annual interest rate of {rate:F2}% compounded {n} times per year for {time} years.";
+            solution = $"Compound Interest = ${principal * Math.Pow((1 + rate / (n * 100)), n * time):F2}";
+            hint = "Hint: Use the formula A = P(1 + r/n)^(nt).";
+            break;
+
+        case "depreciation-straight-line":
+            int cost = random.Next(5000, 20000);
+            int salvageValue = random.Next(500, 2000);
+            int usefulLife = random.Next(5, 15);
+            description = $"Calculate the annual depreciation expense for an asset with an initial cost of ${cost}, a salvage value of ${salvageValue}, and a useful life of {usefulLife} years.";
+            solution = $"Annual Depreciation = ${(cost - salvageValue) / usefulLife:F2}";
+            hint = "Hint: Use the formula (Cost - Salvage Value) / Useful Life.";
+            break;
+
+        case "linear programming":
+            description = "Maximize Z = 3x + 4y subject to constraints: x + y ≤ 10, 2x + y ≤ 15, x, y ≥ 0.";
+            solution = "Optimal solution is x = 5, y = 5, Z = 35.";
+            hint = "Hint: Graph the constraints and find the feasible region.";
+            difficulty = DifficultyLevel.Hard;
+            complexity = ComplexityLevel.Advanced;
+            break;
+
+        case "transportation problem":
+            description = "Minimize transportation cost between factories and warehouses given the supply, demand, and cost matrix.";
+            solution = "Solution involves solving the transportation tableau.";
+            hint = "Hint: Use the North-West Corner Rule or the Simplex Method.";
+            difficulty = DifficultyLevel.Hard;
+            complexity = ComplexityLevel.Advanced;
+            break;
+
+        default:
+            description = "Invalid topic for Business Mathematics, Depreciation, or Operations Research.";
+            solution = "N/A";
+            break;
+    }
+
+    return new Problem
+    {
+        Id = random.Next(1, 10000),
+        Description = description,
+        Solution = solution,
+        Hint = hint,
+        Category = "Business Mathematics",
+        Difficulty = difficulty,
+        Complexity = complexity
+    };
+}
+
+public Problem GenerateAdvancedMathProblem(string topic = "quantum mechanics")
+{
+    string description = string.Empty;
+    string solution = string.Empty;
+    string hint = string.Empty;
+    DifficultyLevel difficulty = DifficultyLevel.Hard;
+    ComplexityLevel complexity = ComplexityLevel.Advanced;
+
+    switch (topic.ToLower())
+    {
+        // Quantum Mechanics
+        case "quantum mechanics":
+            description = "Solve the time-independent Schrödinger equation for a particle in a one-dimensional infinite potential well.";
+            solution = "Solutions are ψ_n(x) = sqrt(2/L) * sin(nπx/L), with energy levels E_n = n²h²/8mL².";
+            hint = "Hint: Use separation of variables and boundary conditions.";
+            break;
+
+        // Advanced Differential Equations
+        case "pdes":
+            description = "Solve the heat equation ∂u/∂t = α∇²u on a 1D rod of length L with boundary conditions u(0,t) = 0 and u(L,t) = 0.";
+            solution = "Use separation of variables: u(x,t) = Σ A_n sin(nπx/L)e^(-α(nπ/L)²t).";
+            hint = "Hint: Apply separation of variables and Fourier series.";
+            break;
+
+        // Functional Analysis
+        case "functional analysis":
+            description = "Prove that the space L²([0,1]) is a Hilbert space.";
+            solution = "L²([0,1]) satisfies the completeness property with respect to the inner product ⟨f,g⟩ = ∫₀¹ f(x)g(x) dx.";
+            hint = "Hint: Demonstrate the Cauchy sequence convergence property.";
+            break;
+
+        // Operator Theory
+        case "operator theory":
+            description = "Find the spectrum of the multiplication operator T(f)(x) = x*f(x) on L²([0,1]).";
+            solution = "The spectrum of T is [0,1], as T is a self-adjoint operator with eigenfunctions f(x) = δ(x-a).";
+            hint = "Hint: Use the definition of spectrum and properties of bounded operators.";
+            break;
+
+        // Functional Spaces
+        case "functional spaces":
+            description = "Prove that every L² function on [a,b] has a Fourier series representation.";
+            solution = "Using Parseval's theorem and orthonormality of sin/cos functions, f(x) can be expanded as a Fourier series.";
+            hint = "Hint: Start with the definition of L² and completeness of trigonometric functions.";
+            break;
+
+        // Advanced Topics in Mathematical Physics
+        case "mathematical physics":
+            description = "Solve Einstein’s field equations in the case of a spherically symmetric spacetime.";
+            solution = "The Schwarzschild solution is ds² = -(1-2GM/r)dt² + dr²/(1-2GM/r) + r²(dθ² + sin²θ dφ²).";
+            hint = "Hint: Assume spherical symmetry and solve for g_μν.";
+            break;
+
+        // Default Case
+        default:
+            description = "Invalid topic for Advanced Mathematics.";
+            solution = "N/A";
+            hint = "Please select a valid topic.";
+            difficulty = DifficultyLevel.Medium;
+            complexity = ComplexityLevel.Intermediate;
+            break;
+    }
+
+    return new Problem
+    {
+        Id = new Random().Next(1, 10000),
+        Description = description,
+        Solution = solution,
+        Hint = hint,
+        Category = "Advanced Mathematics",
+        Difficulty = difficulty,
+        Complexity = complexity
     };
 }
 
 
 
 
- public Problem GenerateAdaptiveProblem(string userId, UserProgressService userProgressService)
+public Problem GenerateAdaptiveProblem(string userId, UserProgressService userProgressService)
 {
     var userProfile = userProgressService.GetUserProfile(userId);
     DifficultyLevel difficulty = userProfile.CurrentDifficulty;
 
+    // Randomly pick a problem type within the difficulty level
+    var random = new Random();
+    string[] easyTopics = { "basic math", "logic", "simple interest", "venn diagrams", "sets and relations" };
+    string[] mediumTopics = { 
+        "linear equations", "cardinality", "compound interest", "break-even analysis", 
+        "sequences", "probability", "unit circle" 
+    };
+    string[] hardTopics = { 
+        "quadratic equations", "linear programming", "metric spaces", "transportation problem", 
+        "quantum mechanics", "pdes", "functional analysis", "topology", "abstract algebra", 
+        "complex analysis" 
+    };
+
     switch (difficulty)
     {
         case DifficultyLevel.Easy:
-            return GenerateBasicMathProblem(); // Assume this method exists
+            return GenerateProblemByTopic(easyTopics[random.Next(easyTopics.Length)]);
         case DifficultyLevel.Medium:
-            return GenerateLinearEquationProblem(); // Assume this method exists
+            return GenerateProblemByTopic(mediumTopics[random.Next(mediumTopics.Length)]);
         case DifficultyLevel.Hard:
-            return GenerateQuadraticEquationProblem(); // Assume this method exists
+            return GenerateProblemByTopic(hardTopics[random.Next(hardTopics.Length)]);
+        default:
+            return GenerateProblemByTopic(easyTopics[random.Next(easyTopics.Length)]); // Default fallback to easy
+    }
+}
+
+private Problem GenerateProblemByTopic(string topic)
+{
+    switch (topic.ToLower())
+    {
+        // Easy topics
+        case "basic math":
+            return GenerateBasicMathProblem(); // Pre-existing function
+        case "logic":
+            return GenerateSetTheoryAndLogicProblem("logic");
+        case "simple interest":
+            return GenerateBusinessMathProblem("simple interest");
+        case "venn diagrams":
+            return GenerateSetTheoryAndLogicProblem("venn diagrams");
+        case "sets and relations":
+            return GenerateSetTheoryAndLogicProblem("relations");
+
+        // Medium topics
+        case "linear equations":
+            return GenerateLinearEquationProblem(); // Pre-existing function
+        case "cardinality":
+            return GenerateSetTheoryAndLogicProblem("cardinality");
+        case "compound interest":
+            return GenerateBusinessMathProblem("compound interest");
+        case "break-even analysis":
+            return GenerateBusinessMathProblem("break-even analysis");
+        case "sequences":
+            return GenerateRealAnalysisProblem("sequences");
+        case "probability":
+            return GenerateProbabilityProblem("probability");
+        case "unit circle":
+            return GenerateTrigonometryProblem("unit circle");
+
+        // Hard topics
+        case "quadratic equations":
+            return GenerateQuadraticEquationProblem(); // Pre-existing function
+        case "linear programming":
+            return GenerateBusinessMathProblem("linear programming");
+        case "metric spaces":
+            return GenerateRealAnalysisProblem("metric spaces");
+        case "transportation problem":
+            return GenerateBusinessMathProblem("transportation problem");
+        case "quantum mechanics":
+            return GenerateAdvancedMathProblem("quantum mechanics");
+        case "pdes":
+            return GenerateAdvancedMathProblem("pdes");
+        case "functional analysis":
+            return GenerateAdvancedMathProblem("functional analysis");
+        case "topology":
+            return GenerateTopologyProblem("open and closed sets");
+        case "abstract algebra":
+            return GenerateAbstractAlgebraProblem("groups");
+        case "complex analysis":
+            return GenerateComplexAnalysisProblem("complex functions");
+
+        // Default case for unknown topics
         default:
             return GenerateBasicMathProblem(); // Default fallback
     }
 }
+
 
 
         internal object GenerateProblem(string operation)
