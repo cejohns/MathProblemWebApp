@@ -5,11 +5,10 @@ CREATE TABLE Subjects (
  Description TEXT
 )*/
 
-/*-- Insert data into Subjects table
-INSERT INTO Subjects (SubjectID, Name, Description)
+ --Insert data into Subjects table
+/**INSERT INTO Subjects (SubjectID, Name, Description)
 VALUES 
-(1, 'Basic Math', 'Addition, subtraction, multiplication, and division.'),
-(2, 'Logic', 'Truth tables, logical connectives, and quantifiers.'),
+
 (3, 'Sets and Relations', 'Operations on sets, Cartesian products, and equivalence relations.'),
 (4, 'Simple Interest', 'Calculating interest using basic formulas.'),
 (5, 'Compound Interest', 'Applying compound interest formulas.'),
@@ -23,11 +22,13 @@ VALUES
 (13, 'Open and Closed Sets', 'Basics of topology and continuity.'),
 (14, 'Groups', 'Introduction to group theory in abstract algebra.'),
 (15, 'Complex Functions', 'Analysis of complex numbers and mappings.');
-*/
+**/
 
-SELECT * FROM Subjects;
 
-/*CREATE TABLE Problems (
+
+--SELECT * FROM Subjects;
+
+/**CREATE TABLE Problems (
     ProblemID INTEGER PRIMARY KEY, -- Automatically increments
     SubjectID INTEGER NOT NULL,
     Problem TEXT NOT NULL,
@@ -36,10 +37,10 @@ SELECT * FROM Subjects;
     Difficulty TEXT CHECK (Difficulty IN ('Easy', 'Medium', 'Hard')) DEFAULT 'Medium',
     Complexity TEXT CHECK (Complexity IN ('Simple', 'Intermediate', 'Advanced')) DEFAULT 'Intermediate',
     FOREIGN KEY (SubjectID) REFERENCES Subjects(SubjectID)
-);*/
+);**/
 
 -- Insert data into Problems table
-/*INSERT INTO Problems (SubjectID, Problem, Solution, Hint, Difficulty, Complexity)
+/**INSERT INTO Problems (SubjectID, Problem, Solution, Hint, Difficulty, Complexity)
 VALUES
 (1, 'What is 5 + 3?', '8', 'Add the two numbers.', 'Easy', 'Simple'),
 (1, 'What is 12 ÷ 4?', '3', 'Divide the numerator by the denominator.', 'Easy', 'Simple'),
@@ -51,6 +52,6 @@ VALUES
 (7, 'Determine the limit of 1/x as x approaches infinity.', '0', 'As x increases, 1/x approaches zero.', 'Hard', 'Intermediate'),
 (8, 'Calculate the eigenvalues of the matrix [[2, 1], [1, 2]].', '3, 1', 'Find the roots of the characteristic polynomial.', 'Hard', 'Advanced'),
 (9, 'Solve the ODE: dy/dx = 3x^2.', 'y = x^3 + C', 'Integrate both sides with respect to x.', 'Medium', 'Intermediate');
-*/
+**/
 
---SELECT * FROM Problems;
+SELECT * FROM Problems;
