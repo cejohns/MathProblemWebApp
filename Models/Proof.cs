@@ -10,17 +10,19 @@ namespace MathProblemWebApp.Models
         public int ProofID { get; set; }
 
         [Required]
-        [ForeignKey("Subject")]
         public int SubjectID { get; set; }
-        
+
         [Required]
-        public string Statement { get; set; }
+        [MaxLength(500)]
+        public required string Statement { get; set; } = string.Empty;
 
-        public string ProofText { get; set; }
+        [Required]
+        public required string ProofText { get; set; } = string.Empty;
 
-        public string DiagramURL { get; set; }
+        // Diagram URL can be nullable if not always provided
+        public string? DiagramURL { get; set; }
 
-        // Navigation Property
-        public virtual Subject Subject { get; set; }
+        // Navigation property
+        public virtual Subject? Subject { get; set; }
     }
 }

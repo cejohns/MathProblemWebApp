@@ -1,11 +1,49 @@
 using System;
 using MathProblemWebApp.Models;
+using System.Data.SQLite;
 
 namespace MathProblemWebApp.Services
 {
     public class MathProblemService
     {
         private static Random random = new Random();
+
+   private readonly string _connectionString = "Data Source=YourDatabaseFilePath;Version=3;";
+
+    public Problem GetRandomProblem(DifficultyLevel difficulty, string subject)
+    {
+        using var connection = new SQLiteConnection(_connectionString);
+        connection.Open();
+
+        string query = @"
+            SELECT Id, Description, Solution, Category, Difficulty, Hint, Subject, Complexity
+            FROM Problems
+            WHERE Difficulty = @Difficulty AND Subject = @Subject
+            ORDER BY RANDOM() LIMIT 1;";
+
+        using var command = new SQLiteCommand(query, connection);
+        command.Parameters.AddWithValue("@Difficulty", difficulty.ToString());
+        command.Parameters.AddWithValue("@Subject", subject);
+
+        using var reader = command.ExecuteReader();
+
+        if (reader.Read())
+        {
+            return new Problem
+            {
+                Id = reader.GetInt32(0),
+                Description = reader.GetString(1),
+                Solution = reader.IsDBNull(2) ? null : reader.GetString(2),
+                Category = reader.GetString(3),
+                Difficulty = Enum.Parse<DifficultyLevel>(reader.GetString(4)),
+                Hint = reader.GetString(5),
+                Subject = reader.GetString(6),
+                Complexity = Enum.Parse<ComplexityLevel>(reader.GetString(7))
+            };
+        }
+
+        throw new InvalidOperationException("No matching problem found.");
+    }
 
         // Generate a basic arithmetic problem
       public Problem GenerateBasicMathProblem(string operation = "")
