@@ -1,13 +1,19 @@
-﻿@page
-@model IndexModel
-@{
-    ViewData["Title"] = "Math Problem Generator";
+﻿@foreach (var problem in Model.MathProblems)
+{
+    if (problem.Value != null)
+    {
+        <li>
+            <strong>Category:</strong> @problem.Key <br />
+            <strong>Difficulty:</strong> @problem.Value.Difficulty <br />
+            <strong>Description:</strong> @problem.Value.Description <br />
+            <strong>Solution:</strong> @problem.Value.Solution
+        </li>
+    }
+    else
+    {
+        <li>
+            <strong>Category:</strong> @problem.Key <br />
+            <em>No problem details available.</em>
+        </li>
+    }
 }
-
-<div>
-    <h1>Math Problem</h1>
-    <p><strong>Category:</strong> @Model.GeneratedBasicMathProblem .Category</p>
-    <p><strong>Difficulty:</strong> @Model.GeneratedBasicMathProblem .Difficulty</p>
-    <p><strong>Description:</strong> @Model.GeneratedBasicMathProblem .Description</p>
-    <p><strong>Solution:</strong> @Model.GeneratedBasicMathProblem .Solution</p> <!-- This could be hidden initially -->
-</div>
